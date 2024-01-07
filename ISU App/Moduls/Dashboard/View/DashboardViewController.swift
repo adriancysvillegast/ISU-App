@@ -11,9 +11,16 @@ import DropDown
 class DashboardViewController: UIViewController {
 
     // MARK: - Properties
-    let menuDropDown: DropDown = {
+    
+    private lazy var viewModel: DashBoardViewModel = {
+        let viewModel = DashBoardViewModel()
+        
+        return viewModel
+    }()
+    
+    private let menuDropDown: DropDown = {
        let menu = DropDown()
-        menu.dataSource = ["Work Ticket", "Get Directions"]
+        menu.dataSource = ["Work Ticket", "Get Directions", "Log Out"]
         return menu
     }()
     
@@ -79,7 +86,7 @@ class DashboardViewController: UIViewController {
     // MARK: - Targets
     
     @objc func goToCalendar () {
-        
+//        viewModel.logOut()
     }
     
     @objc func syncEmail() {

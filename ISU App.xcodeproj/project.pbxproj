@@ -15,6 +15,9 @@
 		09182B3C2B48C764006BD12C /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B3B2B48C764006BD12C /* LogInViewModel.swift */; };
 		09182B422B48CB0B006BD12C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B412B48CB0B006BD12C /* DashboardViewController.swift */; };
 		09182B442B48EEE0006BD12C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09182B432B48EEDF006BD12C /* GoogleService-Info.plist */; };
+		09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */; };
+		09EA8B4D2B49DAC0004D93B4 /* UserValidateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */; };
+		09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */; };
 		355BBB03D268B15194E98E10 /* Pods_ISU_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06C717EBCB812B5593288C43 /* Pods_ISU_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +33,9 @@
 		09182B3B2B48C764006BD12C /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		09182B412B48CB0B006BD12C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		09182B432B48EEDF006BD12C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
+		09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserValidateManager.swift; sourceTree = "<group>"; };
+		09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardViewModel.swift; sourceTree = "<group>"; };
 		F853C3F40AD131140A6461E9 /* Pods-ISU App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISU App.debug.xcconfig"; path = "Target Support Files/Pods-ISU App/Pods-ISU App.debug.xcconfig"; sourceTree = "<group>"; };
 		F9E41168690833FCA22408AE /* Pods-ISU App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISU App.release.xcconfig"; path = "Target Support Files/Pods-ISU App/Pods-ISU App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +96,8 @@
 		09182B352B489CAE006BD12C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */,
+				09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -149,6 +157,7 @@
 		09182B3E2B48C8E6006BD12C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -300,11 +309,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */,
 				09182B3C2B48C764006BD12C /* LogInViewModel.swift in Sources */,
 				09182B252B489C70006BD12C /* LogInViewController.swift in Sources */,
 				09182B422B48CB0B006BD12C /* DashboardViewController.swift in Sources */,
 				09182B212B489C70006BD12C /* AppDelegate.swift in Sources */,
 				09182B232B489C70006BD12C /* SceneDelegate.swift in Sources */,
+				09EA8B4D2B49DAC0004D93B4 /* UserValidateManager.swift in Sources */,
+				09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

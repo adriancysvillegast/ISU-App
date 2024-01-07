@@ -15,6 +15,7 @@ class LogInViewController: UIViewController {
     **/
     private lazy var viewModel: LogInViewModel = {
         let viewModel = LogInViewModel()
+        viewModel.delegate = self
         return viewModel
     }()
     
@@ -76,7 +77,7 @@ class LogInViewController: UIViewController {
     private lazy var logIn: UIButton = {
         let button = UIButton()
         button.setTitle("Log In".uppercased(), for: .normal)
-        button.backgroundColor = .green
+        button.backgroundColor = .gray
         button.layer.cornerRadius = 12
         button.isEnabled = false
         button.titleLabel?.textColor = .white
@@ -142,6 +143,36 @@ class LogInViewController: UIViewController {
 // MARK: - UITextFieldDelegate
 
 extension LogInViewController : UITextFieldDelegate {
+    
+    
+}
+
+// MARK: - LogInViewModelDelegate
+extension LogInViewController: LogInViewModelDelegate {
+    func goToDashBoard() {
+        let vc = DashboardViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showError() {
+        let alert = UIAlertController(title: "error".uppercased(), message: "we got an error when trying to log in.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+        present(alert, animated: true)
+    }
+    
+    func inactiveButton() {
+        DispatchQueue.main.async {
+            self.logIn.isEnabled = false
+            self.logIn.backgroundColor = .gray
+        }
+    }
+    
+    func activateButton() {
+        DispatchQueue.main.async {
+            self.logIn.isEnabled = true
+            self.logIn.backgroundColor = .green
+        }
+    }
     
     
 }
