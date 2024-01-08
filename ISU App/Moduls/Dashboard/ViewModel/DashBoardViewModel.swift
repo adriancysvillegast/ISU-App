@@ -6,11 +6,38 @@
 //
 
 import Foundation
+import GoogleSignIn
+import GoogleAPIClientForREST
+import GTMSessionFetcher
+import FirebaseCore
+import FirebaseAuth
 
 class DashBoardViewModel {
     
     // MARK: - Properties
     private var authManager: UserValidateManager
+    
+    var api_key: String = ProcessInfo.processInfo.environment["api_key"] ?? ""
+    
+    var isSignedIn: Bool {
+        return userAccessToken != nil
+    }
+    
+    var userAccessToken: String? {
+        return UserDefaults.standard.string(forKey: "userAccessToken")
+    }
+    
+    var idToken: String? {
+        return UserDefaults.standard.string(forKey: "idToken")
+    }
+    
+    var email: String? {
+        return UserDefaults.standard.string(forKey: "email")
+    }
+    
+    var name: String? {
+        return UserDefaults.standard.string(forKey: "name")
+    }
     
     // MARK: - init
     
@@ -21,7 +48,51 @@ class DashBoardViewModel {
     }
     // MARK: - Methods
     
+    func logInGoogle(vc: UIViewController) {
+        
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: vc) { [unowned self] result, error in
+          if error == nil {
+            print("without error")
+          }
+
+          guard let user = result?.user,
+            let idToken = user.idToken?.tokenString
+          else {
+            return
+          }
+            
+//            print(user.profile?.name)
+            saveDataUserGoogle(idToken: idToken, user: user)
+          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                         accessToken: user.accessToken.tokenString)
+        }
+        
+    }
+    
+    func saveDataUserGoogle(idToken: String, user: GIDGoogleUser) {
+        UserDefaults().set(idToken, forKey: "idToken")
+        UserDefaults().set(user.accessToken.tokenString, forKey: "userAccessToken")
+        UserDefaults().set(user.profile?.email, forKey: "email")
+        UserDefaults().set(user.profile?.name, forKey: "name")
+        
+    }
+    
     func logOut() {
         authManager.logOut()
+        logOutGoogle()
+    }
+    
+    private func logOutGoogle() {
+        UserDefaults().set(nil, forKey: "idToken")
+        UserDefaults().set(nil, forKey: "userAccessToken")
+        UserDefaults().set(nil, forKey: "email")
+        UserDefaults().set(nil, forKey: "name")
     }
 }

@@ -7,20 +7,31 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseAuth
 import DropDown
+import GoogleSignIn
+import GooglePlaces
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        
         FirebaseApp.configure()
         DropDown.startListeningToKeyboard()
+        GMSServices.provideAPIKey(Constants.api_key)
+        GMSPlacesClient.provideAPIKey(Constants.api_key_places)
         return true
     }
 
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+      return GIDSignIn.sharedInstance.handle(url)
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

@@ -8,6 +8,7 @@
 import UIKit
 import DropDown
 
+
 class DashboardViewController: UIViewController {
 
     // MARK: - Properties
@@ -32,8 +33,10 @@ class DashboardViewController: UIViewController {
             action: #selector(showMenu))
         return button
     }()
-        
     
+//    private let scopes = [kGTLRAuthScopeCalendar]
+//    private let service = GTLRCalendarService()
+//    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -43,6 +46,10 @@ class DashboardViewController: UIViewController {
         setUpNavigationBar()
         setUpView()
         
+//        GIDSignIn.sharedInstance.clientID = "your-key-goes-here"
+//        GIDSignIn.sharedInstance
+//        GIDSignIn.sharedInstance().scopes = scopes
+//        GIDSignIn.sharedInstance.presentingViewController = self
         // Do any additional setup after loading the view.
     }
     
@@ -86,15 +93,16 @@ class DashboardViewController: UIViewController {
     // MARK: - Targets
     
     @objc func goToCalendar () {
-//        viewModel.logOut()
+        viewModel.logOut()
     }
     
     @objc func syncEmail() {
-        
+        signUpGoogle()
     }
     
     @objc func addNewTicket() {
-        
+        let vc = NewTicketViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func showMenu() {
@@ -103,14 +111,17 @@ class DashboardViewController: UIViewController {
     
     // MARK: - Methods
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func signUpGoogle() {
+        
+        if viewModel.isSignedIn {
+//            show alert
+            showAlertMessage(title: "You're logged", message: "\(viewModel.name ?? "Someone") is conected ")
+        } else {
+            
+            viewModel.logInGoogle(vc: self)
+        }
+        
+        
     }
-    */
 
 }

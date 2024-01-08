@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ValidationManager {
+final class ValidationManager {
     
     /* This class has the propose to make all the validations to have a correct email and password to create a account on this app */
     

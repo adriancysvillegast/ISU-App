@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-class UserValidateManager {
+final class UserValidateManager {
     
     /*
      This class has the propose of make all of the validations to log in, log out and validate if there is an account active 

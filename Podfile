@@ -7,7 +7,10 @@ target 'ISU App' do
 
 pod 'DropDown'
 pod 'FirebaseAuth'
-
+pod 'GoogleAPIClientForREST/Calendar'
+pod 'GoogleSignIn'
+pod 'GoogleMaps', '4.0.0'
+pod 'GooglePlaces' , '4.0.0'
   # Pods for ISU App
 
 end

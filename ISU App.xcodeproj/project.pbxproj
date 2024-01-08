@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0910AD662B4B7ED300769EAD /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0910AD652B4B7ED300769EAD /* SearchLocationViewController.swift */; };
+		0910AD682B4B830300769EAD /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0910AD672B4B830200769EAD /* SearchResultViewController.swift */; };
+		0910AD6B2B4B8D6D00769EAD /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0910AD6A2B4B8D6D00769EAD /* GooglePlacesManager.swift */; };
+		0910AD6D2B4B918700769EAD /* PlacesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0910AD6C2B4B918700769EAD /* PlacesModal.swift */; };
+		0910AD702B4B945D00769EAD /* SearchLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0910AD6F2B4B945D00769EAD /* SearchLocationViewModel.swift */; };
+		0910AD732B4B97DF00769EAD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0910AD722B4B97DF00769EAD /* Constants.swift */; };
 		09182B212B489C70006BD12C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B202B489C70006BD12C /* AppDelegate.swift */; };
 		09182B232B489C70006BD12C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B222B489C70006BD12C /* SceneDelegate.swift */; };
 		09182B252B489C70006BD12C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B242B489C70006BD12C /* LogInViewController.swift */; };
@@ -14,15 +20,24 @@
 		09182B2D2B489C76006BD12C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09182B2B2B489C76006BD12C /* LaunchScreen.storyboard */; };
 		09182B3C2B48C764006BD12C /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B3B2B48C764006BD12C /* LogInViewModel.swift */; };
 		09182B422B48CB0B006BD12C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B412B48CB0B006BD12C /* DashboardViewController.swift */; };
-		09182B442B48EEE0006BD12C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09182B432B48EEDF006BD12C /* GoogleService-Info.plist */; };
+		094901802B4AFBEC00EDCE1B /* ShowAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */; };
+		094901862B4B040C00EDCE1B /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901852B4B040C00EDCE1B /* NewTicketViewController.swift */; };
+		094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */; };
 		09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */; };
 		09EA8B4D2B49DAC0004D93B4 /* UserValidateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */; };
 		09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */; };
+		09EA8B512B4A4875004D93B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09EA8B502B4A4875004D93B4 /* GoogleService-Info.plist */; };
 		355BBB03D268B15194E98E10 /* Pods_ISU_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06C717EBCB812B5593288C43 /* Pods_ISU_App.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		06C717EBCB812B5593288C43 /* Pods_ISU_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISU_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0910AD652B4B7ED300769EAD /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
+		0910AD672B4B830200769EAD /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		0910AD6A2B4B8D6D00769EAD /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
+		0910AD6C2B4B918700769EAD /* PlacesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModal.swift; sourceTree = "<group>"; };
+		0910AD6F2B4B945D00769EAD /* SearchLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewModel.swift; sourceTree = "<group>"; };
+		0910AD722B4B97DF00769EAD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		09182B1D2B489C70006BD12C /* ISU App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ISU App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09182B202B489C70006BD12C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09182B222B489C70006BD12C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,10 +47,13 @@
 		09182B2E2B489C76006BD12C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09182B3B2B48C764006BD12C /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		09182B412B48CB0B006BD12C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		09182B432B48EEDF006BD12C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertView.swift; sourceTree = "<group>"; };
+		094901852B4B040C00EDCE1B /* NewTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
+		094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewModel.swift; sourceTree = "<group>"; };
 		09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
 		09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserValidateManager.swift; sourceTree = "<group>"; };
 		09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardViewModel.swift; sourceTree = "<group>"; };
+		09EA8B502B4A4875004D93B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F853C3F40AD131140A6461E9 /* Pods-ISU App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISU App.debug.xcconfig"; path = "Target Support Files/Pods-ISU App/Pods-ISU App.debug.xcconfig"; sourceTree = "<group>"; };
 		F9E41168690833FCA22408AE /* Pods-ISU App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISU App.release.xcconfig"; path = "Target Support Files/Pods-ISU App/Pods-ISU App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,6 +70,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0910AD642B4B7EAA00769EAD /* SearchLocation */ = {
+			isa = PBXGroup;
+			children = (
+				0910AD692B4B832D00769EAD /* View */,
+				0910AD6E2B4B918B00769EAD /* Model */,
+				0910AD712B4B946200769EAD /* ViewModel */,
+			);
+			path = SearchLocation;
+			sourceTree = "<group>";
+		};
+		0910AD692B4B832D00769EAD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0910AD652B4B7ED300769EAD /* SearchLocationViewController.swift */,
+				0910AD672B4B830200769EAD /* SearchResultViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0910AD6E2B4B918B00769EAD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0910AD6C2B4B918700769EAD /* PlacesModal.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0910AD712B4B946200769EAD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0910AD6F2B4B945D00769EAD /* SearchLocationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		09182B142B489C70006BD12C = {
 			isa = PBXGroup;
 			children = (
@@ -81,7 +134,7 @@
 				09182B292B489C76006BD12C /* Assets.xcassets */,
 				09182B2B2B489C76006BD12C /* LaunchScreen.storyboard */,
 				09182B2E2B489C76006BD12C /* Info.plist */,
-				09182B432B48EEDF006BD12C /* GoogleService-Info.plist */,
+				09EA8B502B4A4875004D93B4 /* GoogleService-Info.plist */,
 			);
 			path = "ISU App";
 			sourceTree = "<group>";
@@ -96,8 +149,9 @@
 		09182B352B489CAE006BD12C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */,
-				09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */,
+				0949017E2B4AFAE600EDCE1B /* Managers */,
+				0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */,
+				0910AD722B4B97DF00769EAD /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -105,6 +159,8 @@
 		09182B362B489CB9006BD12C /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
+				0910AD642B4B7EAA00769EAD /* SearchLocation */,
+				094901812B4B036D00EDCE1B /* New Ticket */,
 				09182B3D2B48C8C7006BD12C /* Dashboard */,
 				09182B372B489CDB006BD12C /* Log In */,
 			);
@@ -177,6 +233,49 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		0949017E2B4AFAE600EDCE1B /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */,
+				09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */,
+				0910AD6A2B4B8D6D00769EAD /* GooglePlacesManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		094901812B4B036D00EDCE1B /* New Ticket */ = {
+			isa = PBXGroup;
+			children = (
+				094901822B4B039D00EDCE1B /* Model */,
+				094901842B4B03AD00EDCE1B /* View */,
+				094901832B4B03A500EDCE1B /* ViewModel */,
+			);
+			path = "New Ticket";
+			sourceTree = "<group>";
+		};
+		094901822B4B039D00EDCE1B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		094901832B4B03A500EDCE1B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		094901842B4B03AD00EDCE1B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				094901852B4B040C00EDCE1B /* NewTicketViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		27ACB3CD8BB950CDCDB10099 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +305,7 @@
 				09182B1A2B489C70006BD12C /* Frameworks */,
 				09182B1B2B489C70006BD12C /* Resources */,
 				D107B9704EC1D1FDB46F48CE /* [CP] Embed Pods Frameworks */,
+				E1BD835CCC5EF5B0267914F9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,7 +356,7 @@
 			files = (
 				09182B2D2B489C76006BD12C /* LaunchScreen.storyboard in Resources */,
 				09182B2A2B489C76006BD12C /* Assets.xcassets in Resources */,
-				09182B442B48EEE0006BD12C /* GoogleService-Info.plist in Resources */,
+				09EA8B512B4A4875004D93B4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +402,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ISU App/Pods-ISU App-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E1BD835CCC5EF5B0267914F9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ISU App/Pods-ISU App-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ISU App/Pods-ISU App-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ISU App/Pods-ISU App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -309,13 +426,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */,
+				0910AD732B4B97DF00769EAD /* Constants.swift in Sources */,
 				09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */,
+				0910AD6D2B4B918700769EAD /* PlacesModal.swift in Sources */,
+				0910AD702B4B945D00769EAD /* SearchLocationViewModel.swift in Sources */,
+				094901862B4B040C00EDCE1B /* NewTicketViewController.swift in Sources */,
+				0910AD662B4B7ED300769EAD /* SearchLocationViewController.swift in Sources */,
+				094901802B4AFBEC00EDCE1B /* ShowAlertView.swift in Sources */,
 				09182B3C2B48C764006BD12C /* LogInViewModel.swift in Sources */,
 				09182B252B489C70006BD12C /* LogInViewController.swift in Sources */,
 				09182B422B48CB0B006BD12C /* DashboardViewController.swift in Sources */,
 				09182B212B489C70006BD12C /* AppDelegate.swift in Sources */,
 				09182B232B489C70006BD12C /* SceneDelegate.swift in Sources */,
+				0910AD6B2B4B8D6D00769EAD /* GooglePlacesManager.swift in Sources */,
 				09EA8B4D2B49DAC0004D93B4 /* UserValidateManager.swift in Sources */,
+				0910AD682B4B830300769EAD /* SearchResultViewController.swift in Sources */,
 				09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
