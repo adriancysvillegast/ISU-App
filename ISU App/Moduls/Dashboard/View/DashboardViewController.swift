@@ -15,13 +15,13 @@ class DashboardViewController: UIViewController {
     
     private lazy var viewModel: DashBoardViewModel = {
         let viewModel = DashBoardViewModel()
-        
         return viewModel
     }()
     
     private let menuDropDown: DropDown = {
        let menu = DropDown()
         menu.dataSource = ["Work Ticket", "Get Directions", "Log Out"]
+        
         return menu
     }()
     
@@ -34,6 +34,17 @@ class DashboardViewController: UIViewController {
         return button
     }()
     
+    private lazy var aTableView: UITableView = {
+        let aTableView = UITableView()
+        aTableView.register(TicketTableViewCell.self, forCellReuseIdentifier: TicketTableViewCell.identifier)
+        aTableView.delegate = self
+        aTableView.dataSource = self
+        aTableView.backgroundColor = .systemGray
+        aTableView.separatorStyle = .singleLine
+        aTableView.translatesAutoresizingMaskIntoConstraints = false
+        return aTableView
+    }()
+    
 //    private let scopes = [kGTLRAuthScopeCalendar]
 //    private let service = GTLRCalendarService()
 //    
@@ -42,9 +53,11 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray
         setUpNavigationBar()
         setUpView()
+        viewModel.conectToDB()
+        
         
 //        GIDSignIn.sharedInstance.clientID = "your-key-goes-here"
 //        GIDSignIn.sharedInstance
@@ -53,6 +66,10 @@ class DashboardViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getTickets()
+    }
     
     // MARK: - SetupView
     private func setUpNavigationBar() {
@@ -84,10 +101,30 @@ class DashboardViewController: UIViewController {
             animated: true)
         
         menuDropDown.anchorView = menuBar
+        
     }
     
     private func setUpView() {
+        view.addSubview(aTableView)
         
+        NSLayoutConstraint.activate([
+            aTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            aTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40),
+            aTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            aTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        ])
+    }
+    
+    private func getTickets() {
+        viewModel.getTickets()
+        aTableView.reloadData()
+        
+//        viewModel.showData { [weak self] tickets in
+//            DispatchQueue.main.async {
+//                self?.tickets = tickets
+//                self?.aTableView.reloadData()
+//            }
+//        }
     }
     
     // MARK: - Targets
@@ -107,6 +144,7 @@ class DashboardViewController: UIViewController {
     
     @objc func showMenu() {
         menuDropDown.show()
+        
     }
     
     // MARK: - Methods
@@ -124,4 +162,36 @@ class DashboardViewController: UIViewController {
         
     }
 
+}
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
+extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.getTicketsCount()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TicketTableViewCell.identifier, for: indexPath) as? TicketTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        cell.configureCell(ticket: viewModel.ticketForRowAt(index: indexPath.row))
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 300
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let ticketSelected = viewModel.ticketForRowAt(index: indexPath.row)
+        let vc = DetailTicketViewController()
+        vc.ticket = ticketSelected
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    
 }

@@ -23,6 +23,8 @@
 		09445C6F2B4C97B7008C6891 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09445C6E2B4C97B7008C6891 /* SQLiteManager.swift */; };
 		09445C712B4CA2E2008C6891 /* SQLiteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09445C702B4CA2E2008C6891 /* SQLiteCommands.swift */; };
 		09445C732B4CA3B8008C6891 /* TicketModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09445C722B4CA3B8008C6891 /* TicketModelCell.swift */; };
+		09445C762B4CD67D008C6891 /* TicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09445C752B4CD67D008C6891 /* TicketTableViewCell.swift */; };
+		09445C7C2B4D9B50008C6891 /* DetailTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09445C7B2B4D9B50008C6891 /* DetailTicketViewController.swift */; };
 		094901802B4AFBEC00EDCE1B /* ShowAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */; };
 		094901862B4B040C00EDCE1B /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901852B4B040C00EDCE1B /* NewTicketViewController.swift */; };
 		094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */; };
@@ -53,6 +55,8 @@
 		09445C6E2B4C97B7008C6891 /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		09445C702B4CA2E2008C6891 /* SQLiteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteCommands.swift; sourceTree = "<group>"; };
 		09445C722B4CA3B8008C6891 /* TicketModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketModelCell.swift; sourceTree = "<group>"; };
+		09445C752B4CD67D008C6891 /* TicketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketTableViewCell.swift; sourceTree = "<group>"; };
+		09445C7B2B4D9B50008C6891 /* DetailTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTicketViewController.swift; sourceTree = "<group>"; };
 		0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertView.swift; sourceTree = "<group>"; };
 		094901852B4B040C00EDCE1B /* NewTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
 		094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewModel.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 		09182B352B489CAE006BD12C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				09445C742B4CD650008C6891 /* Cells */,
 				0949017E2B4AFAE600EDCE1B /* Managers */,
 				0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */,
 				0910AD722B4B97DF00769EAD /* Constants.swift */,
@@ -166,6 +171,7 @@
 		09182B362B489CB9006BD12C /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
+				09445C772B4D9B00008C6891 /* DetailTicket */,
 				0910AD642B4B7EAA00769EAD /* SearchLocation */,
 				094901812B4B036D00EDCE1B /* New Ticket */,
 				09182B3D2B48C8C7006BD12C /* Dashboard */,
@@ -234,6 +240,46 @@
 			sourceTree = "<group>";
 		};
 		09182B402B48C8F5006BD12C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		09445C742B4CD650008C6891 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				09445C752B4CD67D008C6891 /* TicketTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		09445C772B4D9B00008C6891 /* DetailTicket */ = {
+			isa = PBXGroup;
+			children = (
+				09445C7A2B4D9B20008C6891 /* Model */,
+				09445C782B4D9B0E008C6891 /* View */,
+				09445C792B4D9B19008C6891 /* ViewModel */,
+			);
+			path = DetailTicket;
+			sourceTree = "<group>";
+		};
+		09445C782B4D9B0E008C6891 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				09445C7B2B4D9B50008C6891 /* DetailTicketViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		09445C792B4D9B19008C6891 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		09445C7A2B4D9B20008C6891 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -435,6 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09445C762B4CD67D008C6891 /* TicketTableViewCell.swift in Sources */,
 				094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */,
 				0910AD732B4B97DF00769EAD /* Constants.swift in Sources */,
 				09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */,
@@ -452,6 +499,7 @@
 				09182B232B489C70006BD12C /* SceneDelegate.swift in Sources */,
 				09445C6F2B4C97B7008C6891 /* SQLiteManager.swift in Sources */,
 				0910AD6B2B4B8D6D00769EAD /* GooglePlacesManager.swift in Sources */,
+				09445C7C2B4D9B50008C6891 /* DetailTicketViewController.swift in Sources */,
 				09EA8B4D2B49DAC0004D93B4 /* UserValidateManager.swift in Sources */,
 				0910AD682B4B830300769EAD /* SearchResultViewController.swift in Sources */,
 				09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */,
