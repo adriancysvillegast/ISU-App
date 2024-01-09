@@ -10,6 +10,8 @@ import CoreLocation
 
 protocol NewTicketViewModelDelegate: AnyObject {
     func showAlert()
+    func wasAdded()
+    func errorAdding()
 }
 
 class NewTicketViewModel {
@@ -48,11 +50,35 @@ class NewTicketViewModel {
     }
     
     func createNewTicket(cliente: String?, date: Date?, location: PlacesModal?) {
+        
         if reviewInfo(cliente: cliente, date: date, location: location){
 //            add
-            print("agregar valores a db")
+            guard let name = cliente, let dateScheduled = date, let location = location else {
+                print("algo anda mal")
+                return
+            }
+            let newTicket = TicketModelCell(id: 0, name: name, placeName: location.name, placeLatitude: location.cordinate.latitude.datatypeValue, placeLongitude: location.cordinate.longitude.datatypeValue, dateScheduled: dateScheduled)
+            createTable()
+            saveTicket(ticket: newTicket)
         }else {
-            print("noooooo")
+            
+            print("error with values \(#function)")
+        }
+    }
+    
+    func createTable() {
+        let db = SQLiteManager.shared
+        db.createTable()
+    }
+    
+    func saveTicket(ticket: TicketModelCell) {
+        let addedTicket = SQLiteCommands.insertRow(ticket)
+        
+        if addedTicket == true{
+            print("--------------")
+            delegate?.wasAdded()
+        }else {
+            delegate?.errorAdding()
         }
     }
     
