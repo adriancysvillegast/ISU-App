@@ -33,7 +33,6 @@ class NewTicketViewController: UIViewController {
         return view
     }()
     
-    //AGREGAR EN VIEWmDEL
     private lazy var viewModel: NewTicketViewModel = {
         let viewModel = NewTicketViewModel()
         viewModel.delegate = self

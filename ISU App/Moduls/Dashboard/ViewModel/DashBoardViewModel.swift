@@ -17,6 +17,8 @@ class DashBoardViewModel {
     // MARK: - Properties
     private var authManager: UserValidateManager
     
+    var ticketsArray: [TicketModelCell] = []
+    
     var api_key: String = ProcessInfo.processInfo.environment["api_key"] ?? ""
     
     var isSignedIn: Bool {
@@ -48,6 +50,34 @@ class DashBoardViewModel {
     }
     // MARK: - Methods
     
+    
+    func conectToDB() {
+        _ = SQLiteManager.shared
+    }
+    
+    func getTickets() {
+        
+        ticketsArray = SQLiteCommands.presentRows() ?? []
+    }
+    
+    func getTicketsCount() -> Int {
+        
+        return ticketsArray.count
+    }
+    
+    func ticketForRowAt(index: Int) -> TicketModelCell {
+        return ticketsArray[index]
+    }
+    
+    func getlastTictek() -> TicketModelCell? {
+        return ticketsArray.first
+    }
+    
+    
+    
+    
+    
+    // MARK: - Google sync
     func logInGoogle(vc: UIViewController) {
         
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
@@ -76,14 +106,6 @@ class DashBoardViewModel {
         
     }
     
-    func saveDataUserGoogle(idToken: String, user: GIDGoogleUser) {
-        UserDefaults().set(idToken, forKey: "idToken")
-        UserDefaults().set(user.accessToken.tokenString, forKey: "userAccessToken")
-        UserDefaults().set(user.profile?.email, forKey: "email")
-        UserDefaults().set(user.profile?.name, forKey: "name")
-        
-    }
-    
     func logOut() {
         authManager.logOut()
         logOutGoogle()
@@ -95,4 +117,16 @@ class DashBoardViewModel {
         UserDefaults().set(nil, forKey: "email")
         UserDefaults().set(nil, forKey: "name")
     }
+    
+    
+    // MARK: - Cache Data
+    func saveDataUserGoogle(idToken: String, user: GIDGoogleUser) {
+        UserDefaults().set(idToken, forKey: "idToken")
+        UserDefaults().set(user.accessToken.tokenString, forKey: "userAccessToken")
+        UserDefaults().set(user.profile?.email, forKey: "email")
+        UserDefaults().set(user.profile?.name, forKey: "name")
+        
+    }
+    
+    
 }

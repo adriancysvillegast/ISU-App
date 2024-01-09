@@ -83,7 +83,7 @@ class SQLiteCommands {
             ticketsArray = try database.prepare(table).compactMap({
                 TicketModelCell(id: $0[id], name: $0[name], placeName: $0[placeName], placeLatitude: $0[placeLatitude], placeLongitude: $0[placeLongitude], dateScheduled: $0[dateScheduled])
             })
-            print(ticketsArray)
+//            print(ticketsArray)
         } catch  {
             print("show row error \(error)")
             
