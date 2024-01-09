@@ -20,6 +20,9 @@
 		09182B2D2B489C76006BD12C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09182B2B2B489C76006BD12C /* LaunchScreen.storyboard */; };
 		09182B3C2B48C764006BD12C /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B3B2B48C764006BD12C /* LogInViewModel.swift */; };
 		09182B422B48CB0B006BD12C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09182B412B48CB0B006BD12C /* DashboardViewController.swift */; };
+		09445C6F2B4C97B7008C6891 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09445C6E2B4C97B7008C6891 /* SQLiteManager.swift */; };
+		09445C712B4CA2E2008C6891 /* SQLiteCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09445C702B4CA2E2008C6891 /* SQLiteCommands.swift */; };
+		09445C732B4CA3B8008C6891 /* TicketModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09445C722B4CA3B8008C6891 /* TicketModelCell.swift */; };
 		094901802B4AFBEC00EDCE1B /* ShowAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */; };
 		094901862B4B040C00EDCE1B /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901852B4B040C00EDCE1B /* NewTicketViewController.swift */; };
 		094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */; };
@@ -47,6 +50,9 @@
 		09182B2E2B489C76006BD12C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09182B3B2B48C764006BD12C /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		09182B412B48CB0B006BD12C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		09445C6E2B4C97B7008C6891 /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
+		09445C702B4CA2E2008C6891 /* SQLiteCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteCommands.swift; sourceTree = "<group>"; };
+		09445C722B4CA3B8008C6891 /* TicketModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketModelCell.swift; sourceTree = "<group>"; };
 		0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertView.swift; sourceTree = "<group>"; };
 		094901852B4B040C00EDCE1B /* NewTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
 		094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewModel.swift; sourceTree = "<group>"; };
@@ -152,6 +158,7 @@
 				0949017E2B4AFAE600EDCE1B /* Managers */,
 				0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */,
 				0910AD722B4B97DF00769EAD /* Constants.swift */,
+				09445C722B4CA3B8008C6891 /* TicketModelCell.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -239,6 +246,8 @@
 				09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */,
 				09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */,
 				0910AD6A2B4B8D6D00769EAD /* GooglePlacesManager.swift */,
+				09445C6E2B4C97B7008C6891 /* SQLiteManager.swift */,
+				09445C702B4CA2E2008C6891 /* SQLiteCommands.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -429,7 +438,9 @@
 				094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */,
 				0910AD732B4B97DF00769EAD /* Constants.swift in Sources */,
 				09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */,
+				09445C712B4CA2E2008C6891 /* SQLiteCommands.swift in Sources */,
 				0910AD6D2B4B918700769EAD /* PlacesModal.swift in Sources */,
+				09445C732B4CA3B8008C6891 /* TicketModelCell.swift in Sources */,
 				0910AD702B4B945D00769EAD /* SearchLocationViewModel.swift in Sources */,
 				094901862B4B040C00EDCE1B /* NewTicketViewController.swift in Sources */,
 				0910AD662B4B7ED300769EAD /* SearchLocationViewController.swift in Sources */,
@@ -439,6 +450,7 @@
 				09182B422B48CB0B006BD12C /* DashboardViewController.swift in Sources */,
 				09182B212B489C70006BD12C /* AppDelegate.swift in Sources */,
 				09182B232B489C70006BD12C /* SceneDelegate.swift in Sources */,
+				09445C6F2B4C97B7008C6891 /* SQLiteManager.swift in Sources */,
 				0910AD6B2B4B8D6D00769EAD /* GooglePlacesManager.swift in Sources */,
 				09EA8B4D2B49DAC0004D93B4 /* UserValidateManager.swift in Sources */,
 				0910AD682B4B830300769EAD /* SearchResultViewController.swift in Sources */,

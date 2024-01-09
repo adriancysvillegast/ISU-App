@@ -274,6 +274,20 @@ extension NewTicketViewController: UITextFieldDelegate {
 }
 // MARK: - NewTicketViewModelDelegate
 extension NewTicketViewController: NewTicketViewModelDelegate {
+    func wasAdded() {
+//        showAlertAndDismiss(title: "Success", message: "The ticket was Added")
+        
+        let alert = UIAlertController(title: "Success", message: "The ticket was Added", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(alert, animated: true)
+    }
+    
+    func errorAdding() {
+        showAlertMessage(title: "Error", message: "Try again")
+    }
+    
     func showAlert() {
         showAlertMessage(title: "Error", message: "You need to add all information, client nane, location and the day for this ticket")
     }
