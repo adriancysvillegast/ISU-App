@@ -412,6 +412,7 @@ class DetailTicketViewController: UIViewController {
     @objc func goToMap() {
 //        mostrar mata con los datos del lugar
     }
+    
     // MARK: - Methods
     
 
@@ -426,14 +427,20 @@ class DetailTicketViewController: UIViewController {
         DispatchQueue.main.async {
             self.dateValue.text = "\(dateArray[0])\n\(dateArray[1])"
             self.locationValue.text = ticket.placeName
+            self.customerValue.text =  ticket.name
         }
     }
     func navigation(index: Int) {
+//        ["Get Directions", "DashBoard"]
+//        navigationController?.dismiss(animated: true)
         if index == 0 {
-//            go to show the direction of the ticket
-        }else {
-            navigationController?.dismiss(animated: true)
+            let vc = SearchLocationViewController()
+            vc.fromHome = true
+            navigationController?.pushViewController(vc, animated: true)
+        }else if index == 1{
+            navigationController?.popViewController(animated: true)
         }
+        
     }
 
 }
