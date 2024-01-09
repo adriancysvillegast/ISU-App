@@ -130,7 +130,7 @@ class DashboardViewController: UIViewController {
     // MARK: - Targets
     
     @objc func goToCalendar () {
-        viewModel.logOut()
+        
     }
     
     @objc func syncEmail() {
@@ -144,22 +144,38 @@ class DashboardViewController: UIViewController {
     
     @objc func showMenu() {
         menuDropDown.show()
-        
+        menuDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+//          print("Selected item: \(item) at index: \(index)")
+            navigation(index: index)
+        }
     }
     
     // MARK: - Methods
 
     func signUpGoogle() {
-        
         if viewModel.isSignedIn {
-//            show alert
             showAlertMessage(title: "You're logged", message: "\(viewModel.name ?? "Someone") is conected ")
         } else {
-            
             viewModel.logInGoogle(vc: self)
         }
+    }
+    
+    func navigation(index: Int) {
+//        ["Work Ticket", "Get Directions", "Log Out"]
         
-        
+        switch index {
+        case 0:
+            let vc = DetailTicketViewController()
+            vc.ticket =  viewModel.getlastTicket()
+            navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            let vc = SearchLocationViewController()
+            vc.fromHome = true
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            self.viewModel.logOut()
+            
+        }
     }
 
 }

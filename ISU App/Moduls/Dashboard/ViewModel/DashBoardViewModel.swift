@@ -69,7 +69,7 @@ class DashBoardViewModel {
         return ticketsArray[index]
     }
     
-    func getlastTictek() -> TicketModelCell? {
+    func getlastTicket() -> TicketModelCell? {
         return ticketsArray.first
     }
     
@@ -109,6 +109,7 @@ class DashBoardViewModel {
     func logOut() {
         authManager.logOut()
         logOutGoogle()
+        
     }
     
     private func logOutGoogle() {

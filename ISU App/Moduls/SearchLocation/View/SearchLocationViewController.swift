@@ -18,6 +18,8 @@ class SearchLocationViewController: UIViewController {
     // MARK: - Properties
     weak var delegate: SearchLocationViewControllerDelegate?
 
+    var fromHome: Bool = false
+    
     private var placeSelected: PlacesModal?
     
     private lazy var viewModel: SearchLocationViewModel = {
@@ -38,6 +40,7 @@ class SearchLocationViewController: UIViewController {
         searchVC.searchResultsUpdater = self
         
        setUpView()
+        test()
     }
     
     override func viewDidLayoutSubviews() {
@@ -69,7 +72,11 @@ class SearchLocationViewController: UIViewController {
     
     // MARK: - Methods
     
-    
+    func test() {
+        if fromHome{
+            navigationItem.rightBarButtonItem?.isHidden = true
+        }
+    }
 }
 
 
@@ -89,7 +96,8 @@ extension SearchLocationViewController: UISearchResultsUpdating{
         }
         
 
-        /*The code inside was working like a charm but how i don't have an account for billing
+        /*
+         The code inside was working like a charm but how i don't have an account for billing
          it stopped giving me locations.
          
          being honest i don't have a credic card to add on google cloud, i tried with my zinli card but it didn't allow me
