@@ -69,6 +69,31 @@ class SQLiteCommands {
         }
     }
     
+    static func updateRow(_ ticketValue: TicketModelCell) -> Bool? {
+        guard let database = SQLiteManager.shared.database else {
+            print("Database connection error")
+            return nil
+        }
+        
+        let ticket = table.filter(id == ticketValue.id).limit(1)
+ 
+        do {
+            if try database.run(ticket.update(name <- ticketValue.name, placeName <- ticketValue.placeName, placeLatitude <- ticketValue.placeLatitude, placeLongitude <- ticketValue.placeLongitude)) > 0 {
+                print("success")
+                return true
+            }else {
+                print("error updating value")
+                return false
+            }
+        } catch let Result.error(message, code, statement) where code == SQLITE_CONSTRAINT{
+            print("Error updating, message: \(message) stament: \(statement)")
+            return false
+        } catch let error {
+            
+            print(error.localizedDescription)
+            return false
+        }
+    }
     
     static func presentRows() -> [TicketModelCell]? {
         guard let database =  SQLiteManager.shared.database else {
