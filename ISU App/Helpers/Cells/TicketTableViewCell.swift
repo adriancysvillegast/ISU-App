@@ -27,6 +27,7 @@ class TicketTableViewCell: UITableViewCell {
         return aView
     }()
     
+    
     private lazy var aCardView: UIView = {
         let aView = UIView()
         aView.backgroundColor = .white
@@ -232,3 +233,5 @@ class TicketTableViewCell: UITableViewCell {
     }
     
 }
+
+

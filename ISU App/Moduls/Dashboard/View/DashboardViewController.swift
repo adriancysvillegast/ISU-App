@@ -39,7 +39,7 @@ class DashboardViewController: UIViewController {
         aTableView.register(TicketTableViewCell.self, forCellReuseIdentifier: TicketTableViewCell.identifier)
         aTableView.delegate = self
         aTableView.dataSource = self
-        aTableView.backgroundColor = .systemGray
+        aTableView.backgroundColor = .clear
         aTableView.separatorStyle = .singleLine
         aTableView.translatesAutoresizingMaskIntoConstraints = false
         return aTableView
@@ -57,7 +57,7 @@ class DashboardViewController: UIViewController {
         setUpNavigationBar()
         setUpView()
         viewModel.conectToDB()
-        
+        print("viewDidLoadviewDidLoadviewDidLoadviewDidLoad")
         
 //        GIDSignIn.sharedInstance.clientID = "your-key-goes-here"
 //        GIDSignIn.sharedInstance
@@ -69,6 +69,7 @@ class DashboardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getTickets()
+        print("viewWillAppearviewWillAppear")
     }
     
     // MARK: - SetupView
@@ -177,7 +178,23 @@ class DashboardViewController: UIViewController {
             
         }
     }
+    
+    /*
+     updateRow()
+     toEditTicket will be true to changes the button and ticketToEdit will
+     obtain the values of the ticket to edit or update
+     */
+    private func updateRow(ticket: TicketModelCell) {
+        let vc = NewTicketViewController()
+        vc.ticketToEdit = ticket
+        vc.toEditTicket = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
+    
+    deinit {
+        print("dash without memory leak")
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -208,6 +225,36 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         navigationController?.pushViewController(vc, animated: true)
         
     }
+    
+    func tableView(_ tableView: UITableView,
+                            contextMenuConfigurationForRowAt indexPath: IndexPath,
+                            point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        //context view to go to update view or delete row from data
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: nil,
+                                          actionProvider: {
+                suggestedActions in
+            let update =
+                UIAction(title: NSLocalizedString("Update", comment: ""),
+                         image: UIImage(systemName: "square.and.pencil")) { action in
+                    let ticketToEdit = self.viewModel.ticketForRowAt(index: indexPath.row)
+                    self.updateRow(ticket: ticketToEdit)
+                }
+            
+            let delete =
+                UIAction(title: NSLocalizedString("Delete", comment: ""),
+                         image: UIImage(systemName: "trash"),
+                         attributes: .destructive) { action in
+//                    self.performDelete(indexPath)
+                    print("delete")
+                }
+            
+            return UIMenu(title: "", children: [update, delete])
+        })
+    }
+    
+    
     
     
 }
