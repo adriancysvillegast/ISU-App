@@ -19,12 +19,4 @@ extension UIViewController{
         self.present(alertMessagePopUpBox, animated: true)
     }
     
-    public func showAlertAndDismiss(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
-//            self.dismiss(animated: true)
-            self.navigationController?.dismiss(animated: true)
-        }))
-        self.present(alert, animated: true)
-    }
 }

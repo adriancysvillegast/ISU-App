@@ -13,8 +13,11 @@ import GoogleMaps
 class NewTicketViewController: UIViewController {
     // MARK: - Properties
     
-    lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 90)
+    lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 80)
 
+    var ticketToEdit: TicketModelCell?
+    var toEditTicket: Bool = false
+    
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.backgroundColor = .systemBackground
@@ -158,6 +161,20 @@ class NewTicketViewController: UIViewController {
         return button
     }()
     
+    private lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Update Ticket".uppercased(), for: .normal)
+        button.backgroundColor = .green
+        button.layer.cornerRadius = 12
+        button.isEnabled = false
+        button.isHidden = true
+        button.titleLabel?.textColor = .white
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(updateTicket), for: .touchUpInside)
+        return button
+    }()
+    
     var location: PlacesModal?
     
     // MARK: - LifeCycle
@@ -168,12 +185,13 @@ class NewTicketViewController: UIViewController {
         //        locationManager.delegate = self
         //        locationManager.requestWhenInUseAuthorization()
         //        locationManager.startUpdatingLocation()
-        
+        setUpViewForUpdates()
         setUpView()
     }
     
     // MARK: - setUpView
     private func setUpView() {
+        
         view.backgroundColor = .white
         title = "Add a new ticket"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -181,8 +199,7 @@ class NewTicketViewController: UIViewController {
         scrollView.addSubview(containerView)
         [
             labelClient,clientTextField, labelAddress, placeNameTextField, goToSearchLocationButton,
-//            cityNameTextField, countryNameTextField,
-            labelDate, datePicker, createButton
+            labelDate, datePicker, createButton, editButton
         
         ].forEach {
             containerView.addSubview($0)
@@ -209,14 +226,7 @@ class NewTicketViewController: UIViewController {
             goToSearchLocationButton.topAnchor.constraint(equalTo: placeNameTextField.bottomAnchor, constant: 8),
             goToSearchLocationButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             goToSearchLocationButton.widthAnchor.constraint(equalToConstant: containerView.frame.width/2),
-//            cityNameTextField.topAnchor.constraint(equalTo: labelAddress.bottomAnchor, constant: 5),
-//            cityNameTextField.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-//            cityNameTextField.widthAnchor.constraint(equalToConstant: containerView.frame.width/1.2),
-//
-//            countryNameTextField.topAnchor.constraint(equalTo: cityNameTextField.bottomAnchor, constant: 5),
-//            countryNameTextField.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-//            countryNameTextField.widthAnchor.constraint(equalToConstant: containerView.frame.width/1.2),
-//
+
             labelDate.topAnchor.constraint(equalTo: goToSearchLocationButton.bottomAnchor, constant: 8),
             labelDate.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             labelDate.widthAnchor.constraint(equalToConstant: 100),
@@ -230,7 +240,43 @@ class NewTicketViewController: UIViewController {
             createButton.widthAnchor.constraint(equalToConstant: 200),
             createButton.heightAnchor.constraint(equalToConstant: 60),
             
+            
+            editButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 40),
+            editButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            editButton.widthAnchor.constraint(equalToConstant: 210),
+            editButton.heightAnchor.constraint(equalToConstant: 60),
+            
+            
+            
         ])
+    }
+    
+    func setUpViewForUpdates() {
+        guard let ticket = ticketToEdit, toEditTicket == true else {
+            return
+        }
+        createButton.isHidden = true
+        createButton.isEnabled = false
+        editButton.isHidden = false
+        editButton.isEnabled = true
+        
+        placeNameTextField.text = ticket.placeName
+        clientTextField.text = ticket.name
+        location = PlacesModal(
+            name: ticket.placeName,
+            cordinate: CoordinatePlaceModal(
+                latitude: CLLocationDegrees(ticket.placeLatitude),
+                longitude: CLLocationDegrees(ticket.placeLongitude))
+        )
+        datePicker.date = ticket.dateScheduled
+        
+//        if toEditTicket {
+//            createButton.isHidden = true
+//            createButton.isEnabled = false
+//
+//            editButton.isHidden = false
+//            editButton.isEnabled = true
+//        }
     }
     
     
@@ -246,9 +292,13 @@ class NewTicketViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func validateInfo() {
-        viewModel.reviewInfo(cliente: clientTextField.text, date: datePicker.date, location: location)
+    @objc func updateTicket() {
+        guard let ticket = ticketToEdit else {
+            return
+        }
+        viewModel.updateTicket(oldTicket: ticket, cliente: clientTextField.text, date: datePicker.date, location: location)
     }
+    
     // MARK: - Methods
 
 }
@@ -258,33 +308,31 @@ extension NewTicketViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == clientTextField || textField == placeNameTextField{
-            scrollView.frame.origin.y -= 40
-        }else if textField == countryNameTextField {
-            scrollView.frame.origin.y -= 120
-        }
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        scrollView.frame.origin.y = 0
-    }
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if textField == clientTextField || textField == placeNameTextField{
+//            scrollView.frame.origin.y -= 40
+//        }else if textField == countryNameTextField {
+//            scrollView.frame.origin.y -= 120
+//        }
+//    }
+//
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        scrollView.frame.origin.y = 0
+//    }
     
 }
 // MARK: - NewTicketViewModelDelegate
 extension NewTicketViewController: NewTicketViewModelDelegate {
-    func wasAdded() {
-//        showAlertAndDismiss(title: "Success", message: "The ticket was Added")
-        
-        let alert = UIAlertController(title: "Success", message: "The ticket was Added", preferredStyle: .alert)
+    func wasAdded(message: String) {
+        let alert = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
             self.navigationController?.popViewController(animated: true)
         }))
         self.present(alert, animated: true)
     }
     
-    func errorAdding() {
-        showAlertMessage(title: "Error", message: "Try again")
+    func errorAdding(message: String) {
+        showAlertMessage(title: "Error", message: message)
     }
     
     func showAlert() {

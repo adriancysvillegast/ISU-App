@@ -56,8 +56,8 @@ class DashBoardViewModel {
     }
     
     func getTickets() {
-        
         ticketsArray = SQLiteCommands.presentRows() ?? []
+//        print(ticketsArray[0])
     }
     
     func getTicketsCount() -> Int {
@@ -72,8 +72,6 @@ class DashBoardViewModel {
     func getlastTicket() -> TicketModelCell? {
         return ticketsArray.first
     }
-    
-    
     
     
     

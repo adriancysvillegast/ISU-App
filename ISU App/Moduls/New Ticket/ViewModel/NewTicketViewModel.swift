@@ -10,8 +10,8 @@ import CoreLocation
 
 protocol NewTicketViewModelDelegate: AnyObject {
     func showAlert()
-    func wasAdded()
-    func errorAdding()
+    func wasAdded(message: String)
+    func errorAdding(message: String)
 }
 
 class NewTicketViewModel {
@@ -75,10 +75,35 @@ class NewTicketViewModel {
         let addedTicket = SQLiteCommands.insertRow(ticket)
         
         if addedTicket == true{
-            print("--------------")
-            delegate?.wasAdded()
+            delegate?.wasAdded(message: "The ticket was added")
         }else {
-            delegate?.errorAdding()
+            delegate?.errorAdding(message: "Error trying to add the ticket")
+        }
+    }
+    
+    func updateTicket(oldTicket: TicketModelCell ,cliente: String?, date: Date?, location: PlacesModal?) {
+        if reviewInfo(cliente: cliente, date: date, location: location){
+            guard let name = cliente, let dateScheduled = date, let location = location else {
+                return
+            }
+            
+            let newValues = TicketModelCell(
+                id: oldTicket.id,
+                name: name,
+                placeName: location.name,
+                placeLatitude: location.cordinate.latitude.datatypeValue,
+                placeLongitude: location.cordinate.longitude.datatypeValue,
+                dateScheduled: dateScheduled)
+
+            let updateSuccess = SQLiteCommands.updateRow(newValues)
+            
+            if updateSuccess == true {
+                delegate?.wasAdded(message: "The ticket was updated")
+            }else {
+                delegate?.errorAdding(message: "Error trying to update the ticket")
+            }
+        }else {
+            delegate?.errorAdding(message: "Error trying to update the ticket")
         }
     }
     
