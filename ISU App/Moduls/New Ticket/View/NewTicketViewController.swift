@@ -40,12 +40,6 @@ class NewTicketViewController: UIViewController {
         return viewModel
     }()
     
-    
-    //    let locationManager =  CLLocationManager()
-    //    var currentLocation: CLLocation?
-    //    var mapView: GMSMapView!
-    //    var selectedPlace: CLLocationCoordinate2D?//esto lo modifique
-    
     private lazy var labelClient: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
@@ -94,7 +88,6 @@ class NewTicketViewController: UIViewController {
         aTextField.tintColor = .secondaryLabel
         aTextField.layer.cornerRadius = 12
         aTextField.translatesAutoresizingMaskIntoConstraints = false
-//                aTextField.addTarget(self, action: #selector(validateInfo), for: .editingChanged)
         aTextField.delegate = self
         return aTextField
     }()
@@ -110,7 +103,6 @@ class NewTicketViewController: UIViewController {
         aTextField.tintColor = .secondarySystemBackground
         aTextField.layer.cornerRadius = 12
         aTextField.translatesAutoresizingMaskIntoConstraints = false
-        //        aTextField.addTarget(self, action: #selector(emailValidate), for: .editingChanged)
         aTextField.delegate = self
         return aTextField
     }()
@@ -178,12 +170,7 @@ class NewTicketViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //        GMSServices.provideAPIKey(viewModel.api_key)
-        //        showAlertMessage(title: "License Info", message: GMSServices.openSourceLicenseInfo())
-        //        locationManager.delegate = self
-        //        locationManager.requestWhenInUseAuthorization()
-        //        locationManager.startUpdatingLocation()
+        
         setUpViewForUpdates()
         setUpView()
     }
@@ -273,7 +260,6 @@ class NewTicketViewController: UIViewController {
     
     // MARK: - targets
     @objc func createTicket() {
-        
         viewModel.createNewTicket(cliente: clientTextField.text, date: datePicker.date, location: location)
     }
     
@@ -294,25 +280,14 @@ class NewTicketViewController: UIViewController {
     // MARK: - Methods
 
 }
+// MARK: - UITextFieldDelegate
 extension NewTicketViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        if textField == clientTextField || textField == placeNameTextField{
-//            scrollView.frame.origin.y -= 40
-//        }else if textField == countryNameTextField {
-//            scrollView.frame.origin.y -= 120
-//        }
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        scrollView.frame.origin.y = 0
-//    }
-    
 }
+
 // MARK: - NewTicketViewModelDelegate
 extension NewTicketViewController: NewTicketViewModelDelegate {
     func wasAdded(message: String) {
@@ -346,26 +321,4 @@ extension NewTicketViewController: SearchLocationViewControllerDelegate {
 
 
 
-//extension NewTicketViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let location = locations.first else {
-//            return
-//        }
-//        print(locations)
-//        let cordinate = location.coordinate
-//        let camera = GMSCameraPosition.camera(withLatitude:cordinate.latitude, longitude: cordinate.longitude, zoom: 6.0)
-//        let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
-//        self.view.addSubview(mapView)
-//
-//        // Creates a marker in the center of the map.
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: cordinate.latitude, longitude: cordinate.longitude)
-//        marker.title = "saa"
-//        marker.snippet = "Australia"
-//        marker.map = mapView
-//    }
-//
-//    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-//
-//    }
-//}
+

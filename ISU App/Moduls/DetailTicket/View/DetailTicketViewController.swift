@@ -411,6 +411,13 @@ class DetailTicketViewController: UIViewController {
     
     @objc func goToMap() {
 //        mostrar mata con los datos del lugar
+        guard let ticketValue = ticket else {
+            return
+        }
+        
+        let vc = LocationTicketViewController()
+        vc.ticket = ticketValue
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Methods
