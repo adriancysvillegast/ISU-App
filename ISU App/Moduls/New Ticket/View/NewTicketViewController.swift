@@ -8,8 +8,6 @@
 import UIKit
 import GoogleMaps
 
-
-
 class NewTicketViewController: UIViewController {
     // MARK: - Properties
     
@@ -180,6 +178,7 @@ class NewTicketViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
         //        GMSServices.provideAPIKey(viewModel.api_key)
         //        showAlertMessage(title: "License Info", message: GMSServices.openSourceLicenseInfo())
         //        locationManager.delegate = self
@@ -269,14 +268,6 @@ class NewTicketViewController: UIViewController {
                 longitude: CLLocationDegrees(ticket.placeLongitude))
         )
         datePicker.date = ticket.dateScheduled
-        
-//        if toEditTicket {
-//            createButton.isHidden = true
-//            createButton.isEnabled = false
-//
-//            editButton.isHidden = false
-//            editButton.isEnabled = true
-//        }
     }
     
     
@@ -349,9 +340,8 @@ extension NewTicketViewController: SearchLocationViewControllerDelegate {
             self.placeNameTextField.text = location.name
         }
     }
-    
-    
 }
+
 
 
 

@@ -12,29 +12,31 @@ import GTMSessionFetcher
 import FirebaseCore
 import FirebaseAuth
 
+protocol DashBoardViewModelDelegate: AnyObject {
+    func conectWithGoogle()
+    func goToSignInView()
+}
+
 class DashBoardViewModel {
     
     // MARK: - Properties
-    private var authManager: UserValidateManager
+    private var authManager: SignInFirebaseManager
+    weak var delegate: DashBoardViewModelDelegate?
+    private var signInGoogleManager: SignInGoogleManager?
     
     var ticketsArray: [TicketModelCell] = []
     
     var api_key: String = ProcessInfo.processInfo.environment["api_key"] ?? ""
     
-    var isSignedIn: Bool {
+    var isSignedInGoogle: Bool {
         return userAccessToken != nil
+    }
+    var isSignInFirebase: Bool {
+        return authManager.isSignIn()
     }
     
     var userAccessToken: String? {
         return UserDefaults.standard.string(forKey: "userAccessToken")
-    }
-    
-    var idToken: String? {
-        return UserDefaults.standard.string(forKey: "idToken")
-    }
-    
-    var email: String? {
-        return UserDefaults.standard.string(forKey: "email")
     }
     
     var name: String? {
@@ -44,10 +46,13 @@ class DashBoardViewModel {
     // MARK: - init
     
     init(
-        authManager: UserValidateManager = UserValidateManager()
+        authManager: SignInFirebaseManager = SignInFirebaseManager(),
+        signInGoogleManager: SignInGoogleManager = SignInGoogleManager()
     ) {
         self.authManager = authManager
+        self.signInGoogleManager = signInGoogleManager
     }
+    
     // MARK: - Methods
     
     
@@ -57,11 +62,9 @@ class DashBoardViewModel {
     
     func getTickets() {
         ticketsArray = SQLiteCommands.presentRows() ?? []
-//        print(ticketsArray[0])
     }
     
     func getTicketsCount() -> Int {
-        
         return ticketsArray.count
     }
     
@@ -74,58 +77,28 @@ class DashBoardViewModel {
     }
     
     
-    
     // MARK: - Google sync
     func logInGoogle(vc: UIViewController) {
-        
-        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-
-        // Create Google Sign In configuration object.
-        let config = GIDConfiguration(clientID: clientID)
-        GIDSignIn.sharedInstance.configuration = config
-
-        // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(withPresenting: vc) { [unowned self] result, error in
-          if error == nil {
-            print("without error")
-          }
-
-          guard let user = result?.user,
-            let idToken = user.idToken?.tokenString
-          else {
-            return
-          }
-            
-//            print(user.profile?.name)
-            saveDataUserGoogle(idToken: idToken, user: user)
-          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                         accessToken: user.accessToken.tokenString)
+        signInGoogleManager?.logIn(vc: vc)
+    }
+    
+    func showAlertToSignWithGoogle() {
+        /*This funtion has the propuse to show a alert to make the user Log in with his\her account */
+        if !isSignedInGoogle{
+            delegate?.conectWithGoogle()
         }
-        
     }
     
     func logOut() {
-        authManager.logOut()
-        logOutGoogle()
+        let firebaseAccount = authManager.logOut()
+        let googleAccount = signInGoogleManager?.logOutCleanData()
         
+        signInGoogleManager?.logOut()
+        if firebaseAccount, googleAccount == true  {
+            self.delegate?.goToSignInView()
+        }else {
+            print("error")
+        }
     }
-    
-    private func logOutGoogle() {
-        UserDefaults().set(nil, forKey: "idToken")
-        UserDefaults().set(nil, forKey: "userAccessToken")
-        UserDefaults().set(nil, forKey: "email")
-        UserDefaults().set(nil, forKey: "name")
-    }
-    
-    
-    // MARK: - Cache Data
-    func saveDataUserGoogle(idToken: String, user: GIDGoogleUser) {
-        UserDefaults().set(idToken, forKey: "idToken")
-        UserDefaults().set(user.accessToken.tokenString, forKey: "userAccessToken")
-        UserDefaults().set(user.profile?.email, forKey: "email")
-        UserDefaults().set(user.profile?.name, forKey: "name")
-        
-    }
-    
-    
+
 }

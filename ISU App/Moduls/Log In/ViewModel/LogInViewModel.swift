@@ -18,7 +18,7 @@ protocol LogInViewModelDelegate: AnyObject {
 class LogInViewModel {
     // MARK: - Properties
     private var validationManager: ValidationManager
-    private var authManager: UserValidateManager
+    private var authManager: SignInFirebaseManager
     
     weak var delegate: LogInViewModelDelegate?
     
@@ -30,7 +30,7 @@ class LogInViewModel {
     
     init(
         validationManager: ValidationManager = ValidationManager(),
-        authManager: UserValidateManager = UserValidateManager()
+        authManager: SignInFirebaseManager = SignInFirebaseManager()
     ) {
         self.validationManager = validationManager
         self.authManager = authManager

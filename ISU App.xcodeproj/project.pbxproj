@@ -28,8 +28,9 @@
 		094901802B4AFBEC00EDCE1B /* ShowAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */; };
 		094901862B4B040C00EDCE1B /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901852B4B040C00EDCE1B /* NewTicketViewController.swift */; };
 		094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */; };
+		0968980A2B4EFDF700351C6D /* SignInGoogleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096898092B4EFDF700351C6D /* SignInGoogleManager.swift */; };
 		09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */; };
-		09EA8B4D2B49DAC0004D93B4 /* UserValidateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */; };
+		09EA8B4D2B49DAC0004D93B4 /* SignInFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4C2B49DAC0004D93B4 /* SignInFirebaseManager.swift */; };
 		09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */; };
 		09EA8B512B4A4875004D93B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09EA8B502B4A4875004D93B4 /* GoogleService-Info.plist */; };
 		355BBB03D268B15194E98E10 /* Pods_ISU_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06C717EBCB812B5593288C43 /* Pods_ISU_App.framework */; };
@@ -60,8 +61,9 @@
 		0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertView.swift; sourceTree = "<group>"; };
 		094901852B4B040C00EDCE1B /* NewTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
 		094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewModel.swift; sourceTree = "<group>"; };
+		096898092B4EFDF700351C6D /* SignInGoogleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleManager.swift; sourceTree = "<group>"; };
 		09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
-		09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserValidateManager.swift; sourceTree = "<group>"; };
+		09EA8B4C2B49DAC0004D93B4 /* SignInFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFirebaseManager.swift; sourceTree = "<group>"; };
 		09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardViewModel.swift; sourceTree = "<group>"; };
 		09EA8B502B4A4875004D93B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F853C3F40AD131140A6461E9 /* Pods-ISU App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISU App.debug.xcconfig"; path = "Target Support Files/Pods-ISU App/Pods-ISU App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -290,10 +292,11 @@
 			isa = PBXGroup;
 			children = (
 				09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */,
-				09EA8B4C2B49DAC0004D93B4 /* UserValidateManager.swift */,
+				09EA8B4C2B49DAC0004D93B4 /* SignInFirebaseManager.swift */,
 				0910AD6A2B4B8D6D00769EAD /* GooglePlacesManager.swift */,
 				09445C6E2B4C97B7008C6891 /* SQLiteManager.swift */,
 				09445C702B4CA2E2008C6891 /* SQLiteCommands.swift */,
+				096898092B4EFDF700351C6D /* SignInGoogleManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 			files = (
 				09445C762B4CD67D008C6891 /* TicketTableViewCell.swift in Sources */,
 				094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */,
+				0968980A2B4EFDF700351C6D /* SignInGoogleManager.swift in Sources */,
 				0910AD732B4B97DF00769EAD /* Constants.swift in Sources */,
 				09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */,
 				09445C712B4CA2E2008C6891 /* SQLiteCommands.swift in Sources */,
@@ -500,7 +504,7 @@
 				09445C6F2B4C97B7008C6891 /* SQLiteManager.swift in Sources */,
 				0910AD6B2B4B8D6D00769EAD /* GooglePlacesManager.swift in Sources */,
 				09445C7C2B4D9B50008C6891 /* DetailTicketViewController.swift in Sources */,
-				09EA8B4D2B49DAC0004D93B4 /* UserValidateManager.swift in Sources */,
+				09EA8B4D2B49DAC0004D93B4 /* SignInFirebaseManager.swift in Sources */,
 				0910AD682B4B830300769EAD /* SearchResultViewController.swift in Sources */,
 				09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */,
 			);
