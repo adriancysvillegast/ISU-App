@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 import GoogleAPIClientForREST
 import GoogleSignIn
+import FirebaseCore
 
 protocol NewTicketViewModelDelegate: AnyObject {
     func showAlert()
@@ -24,7 +25,7 @@ class NewTicketViewModel {
     private var validateManager: ValidationManager?
     private let signGoogleManager: SignInGoogleManager?
     
-    let service = GTLRCalendarService()
+//    let service = GTLRCalendarService()
     
     private var nameAdded: Bool = false
     private var placeAdded: Bool = false
@@ -46,7 +47,11 @@ class NewTicketViewModel {
         db.createTable()
     }
     
-    func createNewTicket(cliente: String?, date: Date?, location: PlacesModal?) {
+    func createNewTicket(
+        cliente: String?,
+        date: Date?,
+        location: PlacesModal?
+    ) {
         
         if reviewInfo(cliente: cliente, date: date, location: location){
             guard let name = cliente, let dateScheduled = date, let location = location else {
@@ -57,17 +62,13 @@ class NewTicketViewModel {
             createTable()
             
             saveTicket(ticket: newTicket)
-//            addEventoToGoogleCalendar(ticketValue: newTicket, client: name, location: location.name, date: dateScheduled)
-            
         }else {
-            
             print("error with values \(#function)")
         }
     }
     
     
     func saveTicket(ticket: TicketModelCell) {
-        
         let addedTicket = SQLiteCommands.insertRow(ticket)
         
         if addedTicket == true{
@@ -77,32 +78,64 @@ class NewTicketViewModel {
         }
     }
     
-    func addEventoToGoogleCalendar(ticketValue: TicketModelCell,
-                                   client : String,
-                                   location : String,
-                                   date: Date
+    func addEventoToGoogleCalendar(
+        vc: UIViewController,
+        ticketValue: TicketModelCell,
+        client : String,
+        location : String,
+        date: Date
     ) {
-        
-        
-        let calendarEvent = GTLRCalendar_Event()
-        calendarEvent.summary = "\(client)"
-        calendarEvent.descriptionProperty = "\(location)"
-        calendarEvent.start = buildDate(date: date)
-        calendarEvent.end = buildDate(date: date)
-        
-        let insertQuery = GTLRCalendarQuery_EventsInsert.query(withObject: calendarEvent, calendarId: "primary")
-        
-        
-        signGoogleManager?.getCurrentUser(complation: { user in
 
-            self.service.authorizer = user.fetcherAuthorizer
-            print(user.grantedScopes)
-            self.service.executeQuery(insertQuery) { service, _, error in
-                print("service: \(service)\n error: \(error)")
+        /*I tried a lot but i couldn't add the tickets on google Calendar
+         all of this process give me this error
+         "Error adding event: Request had insufficient authentication scopes."
+         
+         i tried to add scopes but it wasn't enought, i could undertand the  documentation
+         */
+        
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        let signInConfig = GIDConfiguration(clientID: clientID )
+        GIDSignIn.sharedInstance.configuration = signInConfig
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: vc) { [weak self] result, error in
+            if error != nil {
+                print("errooooorrrr -> \(error)")
             }
-        })
+            
+            self?.addEventToCalendar(
+                vc: vc,
+                ticketValue: ticketValue,
+                client : client,
+                location : location,
+                date: date)
+        }
+    }
+    
+    
+    func addEventToCalendar(vc: UIViewController,ticketValue: TicketModelCell,
+                            client : String,
+                            location : String,
+                            date: Date) {
+        let service = GTLRCalendarService()
+        service.authorizer = GIDSignIn.sharedInstance.currentUser?.fetcherAuthorizer
 
-        
+        let event = GTLRCalendar_Event()
+        event.summary = client
+        event.location = location
+        event.start = buildDate(date: date)
+        event.end = buildDate(date: date.addingTimeInterval(3600))// 1 hour later
+
+        let query = GTLRCalendarQuery_EventsInsert.query(withObject: event, calendarId: "primary")
+        service.executeQuery(query) { _, _, error in
+            if let error = error {
+                // Handle error
+                print("Error adding event: \(error.localizedDescription)")
+                return
+            }
+            self.saveTicket(ticket: ticketValue)
+            // Event added successfully
+            print("Event added to Google Calendar.")
+        }
     }
     
     func buildDate(date: Date) -> GTLRCalendar_EventDateTime {
@@ -111,11 +144,7 @@ class NewTicketViewModel {
         dateObject.dateTime = datetime
         return dateObject
     }
-    
-//    func saveTicketOnCalendar(ticket: TicketModelCell) {
-//
-//    }
-//
+
     func updateTicket(oldTicket: TicketModelCell ,cliente: String?, date: Date?, location: PlacesModal?) {
         if reviewInfo(cliente: cliente, date: date, location: location){
             guard let name = cliente, let dateScheduled = date, let location = location else {
