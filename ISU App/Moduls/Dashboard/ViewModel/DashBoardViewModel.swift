@@ -15,6 +15,7 @@ import FirebaseAuth
 protocol DashBoardViewModelDelegate: AnyObject {
     func conectWithGoogle()
     func goToSignInView()
+    func showAlert(title: String, message: String)
 }
 
 class DashBoardViewModel {
@@ -76,6 +77,15 @@ class DashBoardViewModel {
         return ticketsArray.first
     }
     
+    func delete(ticket: TicketModelCell) {
+        let success = SQLiteCommands.deleteRow(ticket: ticket)
+        
+        if success == true {
+            delegate?.showAlert(title: "Success", message: "\(ticket.name) was deleted")
+        }else {
+            delegate?.showAlert(title: "Error", message: "We got an error trying to delete \(ticket.name)")
+        }
+    }
     
     // MARK: - Google sync
     func logInGoogle(vc: UIViewController) {

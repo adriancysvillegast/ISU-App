@@ -213,7 +213,14 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = DetailTicketViewController()
         vc.ticket = ticketSelected
         navigationController?.pushViewController(vc, animated: true)
-        
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let ticketSelected = viewModel.ticketForRowAt(index: indexPath.row)
+            viewModel.delete(ticket: ticketSelected)
+            self.getTickets()
+        }
     }
     
     func tableView(_ tableView: UITableView,
@@ -231,16 +238,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
                     let ticketToEdit = self.viewModel.ticketForRowAt(index: indexPath.row)
                     self.updateRow(ticket: ticketToEdit)
                 }
-            
-            let delete =
-                UIAction(title: NSLocalizedString("Delete", comment: ""),
-                         image: UIImage(systemName: "trash"),
-                         attributes: .destructive) { action in
-//                    self.performDelete(indexPath)
-                    print("delete")
-                }
-            
-            return UIMenu(title: "", children: [update, delete])
+            return UIMenu(title: "", children: [update])
         })
     }
     
@@ -250,6 +248,12 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension DashboardViewController: DashBoardViewModelDelegate {
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(alert, animated: true)
+    }
+    
     
     func goToSignInView() {
         print("\(#function)")
