@@ -273,6 +273,7 @@ class NewTicketViewController: UIViewController {
     
     // MARK: - targets
     @objc func createTicket() {
+        
         viewModel.createNewTicket(cliente: clientTextField.text, date: datePicker.date, location: location)
     }
     
