@@ -9,12 +9,14 @@ import UIKit
 import DropDown
 
 
+
 class DashboardViewController: UIViewController {
 
     // MARK: - Properties
     
     private lazy var viewModel: DashBoardViewModel = {
         let viewModel = DashBoardViewModel()
+        viewModel.delegate = self
         return viewModel
     }()
     
@@ -57,8 +59,7 @@ class DashboardViewController: UIViewController {
         setUpNavigationBar()
         setUpView()
         viewModel.conectToDB()
-        print("viewDidLoadviewDidLoadviewDidLoadviewDidLoad")
-        
+        viewModel.showAlertToSignWithGoogle()
 //        GIDSignIn.sharedInstance.clientID = "your-key-goes-here"
 //        GIDSignIn.sharedInstance
 //        GIDSignIn.sharedInstance().scopes = scopes
@@ -69,7 +70,6 @@ class DashboardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getTickets()
-        print("viewWillAppearviewWillAppear")
     }
     
     // MARK: - SetupView
@@ -119,13 +119,6 @@ class DashboardViewController: UIViewController {
     private func getTickets() {
         viewModel.getTickets()
         aTableView.reloadData()
-        
-//        viewModel.showData { [weak self] tickets in
-//            DispatchQueue.main.async {
-//                self?.tickets = tickets
-//                self?.aTableView.reloadData()
-//            }
-//        }
     }
     
     // MARK: - Targets
@@ -146,7 +139,6 @@ class DashboardViewController: UIViewController {
     @objc func showMenu() {
         menuDropDown.show()
         menuDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-//          print("Selected item: \(item) at index: \(index)")
             navigation(index: index)
         }
     }
@@ -154,7 +146,7 @@ class DashboardViewController: UIViewController {
     // MARK: - Methods
 
     func signUpGoogle() {
-        if viewModel.isSignedIn {
+        if viewModel.isSignedInGoogle {
             showAlertMessage(title: "You're logged", message: "\(viewModel.name ?? "Someone") is conected ")
         } else {
             viewModel.logInGoogle(vc: self)
@@ -163,7 +155,6 @@ class DashboardViewController: UIViewController {
     
     func navigation(index: Int) {
 //        ["Work Ticket", "Get Directions", "Log Out"]
-        
         switch index {
         case 0:
             let vc = DetailTicketViewController()
@@ -190,7 +181,6 @@ class DashboardViewController: UIViewController {
         vc.toEditTicket = true
         navigationController?.pushViewController(vc, animated: true)
     }
-
     
     deinit {
         print("dash without memory leak")
@@ -255,6 +245,30 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    
+    
+}
+
+extension DashboardViewController: DashBoardViewModelDelegate {
+    
+    func goToSignInView() {
+        print("\(#function)")
+        let vc = LogInViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true) {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    func conectWithGoogle() {
+        let alert = UIAlertController(title: "Conect your google Account", message: "Sign with Google to schedule your tickets", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Sign In Google", style: .default, handler: { _ in
+            self.signUpGoogle()
+        }))
+        present(alert, animated: true)
+    }
     
     
 }
