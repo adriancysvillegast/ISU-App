@@ -40,7 +40,7 @@ class SearchLocationViewController: UIViewController {
         searchVC.searchResultsUpdater = self
         
        setUpView()
-        test()
+        hiddenSaveButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,7 +72,7 @@ class SearchLocationViewController: UIViewController {
     
     // MARK: - Methods
     
-    func test() {
+    func hiddenSaveButton() {
         if fromHome{
             navigationItem.rightBarButtonItem?.isHidden = true
         }

@@ -27,8 +27,6 @@ class DashBoardViewModel {
     
     var ticketsArray: [TicketModelCell] = []
     
-    var api_key: String = ProcessInfo.processInfo.environment["api_key"] ?? ""
-    
     var isSignedInGoogle: Bool {
         return userAccessToken != nil
     }

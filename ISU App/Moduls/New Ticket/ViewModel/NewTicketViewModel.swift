@@ -21,7 +21,6 @@ class NewTicketViewModel {
     
     // MARK: - Properties
     weak var delegate: NewTicketViewModelDelegate?
-    private let locationManager = CLLocationManager()
     private var validateManager: ValidationManager?
     private let signGoogleManager: SignInGoogleManager?
     

@@ -33,6 +33,7 @@
 		09EA8B4D2B49DAC0004D93B4 /* SignInFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4C2B49DAC0004D93B4 /* SignInFirebaseManager.swift */; };
 		09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */; };
 		09EA8B512B4A4875004D93B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09EA8B502B4A4875004D93B4 /* GoogleService-Info.plist */; };
+		09FAB3EA2B5036F3008AB2D9 /* LocationTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FAB3E92B5036F3008AB2D9 /* LocationTicketViewController.swift */; };
 		355BBB03D268B15194E98E10 /* Pods_ISU_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06C717EBCB812B5593288C43 /* Pods_ISU_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		09EA8B4C2B49DAC0004D93B4 /* SignInFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFirebaseManager.swift; sourceTree = "<group>"; };
 		09EA8B4E2B49E6E0004D93B4 /* DashBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardViewModel.swift; sourceTree = "<group>"; };
 		09EA8B502B4A4875004D93B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		09FAB3E92B5036F3008AB2D9 /* LocationTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTicketViewController.swift; sourceTree = "<group>"; };
 		F853C3F40AD131140A6461E9 /* Pods-ISU App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISU App.debug.xcconfig"; path = "Target Support Files/Pods-ISU App/Pods-ISU App.debug.xcconfig"; sourceTree = "<group>"; };
 		F9E41168690833FCA22408AE /* Pods-ISU App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISU App.release.xcconfig"; path = "Target Support Files/Pods-ISU App/Pods-ISU App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				09445C7B2B4D9B50008C6891 /* DetailTicketViewController.swift */,
+				09FAB3E92B5036F3008AB2D9 /* LocationTicketViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				0910AD6B2B4B8D6D00769EAD /* GooglePlacesManager.swift in Sources */,
 				09445C7C2B4D9B50008C6891 /* DetailTicketViewController.swift in Sources */,
 				09EA8B4D2B49DAC0004D93B4 /* SignInFirebaseManager.swift in Sources */,
+				09FAB3EA2B5036F3008AB2D9 /* LocationTicketViewController.swift in Sources */,
 				0910AD682B4B830300769EAD /* SearchResultViewController.swift in Sources */,
 				09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */,
 			);
