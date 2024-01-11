@@ -116,6 +116,19 @@ class SQLiteCommands {
         return ticketsArray
     }
     
-    
+    static func deleteRow(ticket: TicketModelCell) -> Bool? {
+        guard let database =  SQLiteManager.shared.database else {
+            print("Database connection error")
+            return nil
+        }
+        
+        do {
+            let ticket = table.filter(id == ticket.id).limit(1)
+            try database.run(ticket.delete())
+            return true
+        } catch  {
+            return false
+        }
+    }
     
 }
