@@ -157,12 +157,14 @@ class DashboardViewController: UIViewController {
 //        ["Work Ticket", "Get Directions", "Log Out"]
         switch index {
         case 0:
-            let vc = DetailTicketViewController()
-            vc.ticket =  viewModel.getlastTicket()
-            navigationController?.pushViewController(vc, animated: true)
+            guard let ticket = viewModel.getlastTicket() else { return }
+            let vc = HomeTabBar(ticket: ticket)
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
         case 1:
             let vc = SearchLocationViewController()
             vc.fromHome = true
+            vc.navigationController?.navigationBar.prefersLargeTitles = false
             navigationController?.pushViewController(vc, animated: true)
         default:
             self.viewModel.logOut()
@@ -210,9 +212,11 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let ticketSelected = viewModel.ticketForRowAt(index: indexPath.row)
-        let vc = DetailTicketViewController()
-        vc.ticket = ticketSelected
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = DetailTicketViewController()
+//        vc.ticket = ticketSelected
+        let vc = HomeTabBar(ticket: ticketSelected)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

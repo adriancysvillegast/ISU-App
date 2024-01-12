@@ -12,7 +12,9 @@ import DropDown
 class DetailTicketViewController: UIViewController {
 
     // MARK: - Properties
-    var ticket: TicketModelCell?
+    
+    private let ticketD: TicketModelCell
+//    var ticket: TicketModelCell?
     
     private lazy var menuBar: UIBarButtonItem =  {
         let button = UIBarButtonItem(
@@ -236,6 +238,17 @@ class DetailTicketViewController: UIViewController {
         return label
     }()
     
+    
+    // MARK: - Init
+    init(ticket: TicketModelCell) {
+        self.ticketD = ticket
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - lifeCycle
     
     override func viewDidLoad() {
@@ -396,7 +409,13 @@ class DetailTicketViewController: UIViewController {
             animated: true)
         menuDropDown.anchorView = menuBar
 
+        navigationItem.setLeftBarButton(
+            UIBarButtonItem(title: "Dashboard", image: UIImage(systemName: "chevron.backward"), target: self, action: #selector(goToDashBoard))
+            , animated: true)
+        
+        
     }
+    
     
     // MARK: - Targets
     
@@ -408,15 +427,18 @@ class DetailTicketViewController: UIViewController {
         }
     }
     
+    @objc func goToDashBoard() {
+        dismiss(animated: true)
+    }
     
     @objc func goToMap() {
 //        mostrar mata con los datos del lugar
-        guard let ticketValue = ticket else {
-            return
-        }
+//        guard let ticketValue = ticket else {
+//            return
+//        }
         
         let vc = LocationTicketViewController()
-        vc.ticket = ticketValue
+        vc.ticket = ticketD
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -424,17 +446,17 @@ class DetailTicketViewController: UIViewController {
     
 
     func updateView() {
-        guard let ticket = ticket else {
-            return
-        }
+//        guard let ticket = ticket else {
+//            return
+//        }
         
-        let date = ticket.dateScheduled.formatted(date: .numeric, time: .standard)
+        let date = ticketD.dateScheduled.formatted(date: .numeric, time: .standard)
         let dateArray = date.components(separatedBy: ", ")
         
         DispatchQueue.main.async {
             self.dateValue.text = "\(dateArray[0])\n\(dateArray[1])"
-            self.locationValue.text = ticket.placeName
-            self.customerValue.text =  ticket.name
+            self.locationValue.text = self.ticketD.placeName
+            self.customerValue.text =  self.ticketD.name
         }
     }
     func navigation(index: Int) {
@@ -445,7 +467,9 @@ class DetailTicketViewController: UIViewController {
             vc.fromHome = true
             navigationController?.pushViewController(vc, animated: true)
         }else if index == 1{
-            navigationController?.popViewController(animated: true)
+            dismiss(animated: true)
+            print("dissmiss")
+//            navigationController?.popViewController(animated: true)
         }
         
     }

@@ -13,7 +13,7 @@ class LocationTicketViewController: UIViewController {
     
     
     // MARK: - Properties
-
+    
     private lazy var mapView: GMSMapView = {
         let map = GMSMapView()
         return map
@@ -25,6 +25,7 @@ class LocationTicketViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemGray
         GMSServices.provideAPIKey(Constants.api_key)
         showAlertMessage(title: "License Info", message: GMSServices.openSourceLicenseInfo())
         setUpView()
@@ -36,6 +37,7 @@ class LocationTicketViewController: UIViewController {
     }
     
     func setUpView() {
+        navigationController?.navigationBar.prefersLargeTitles = false
         guard let ticket = ticket else {
             return
         }

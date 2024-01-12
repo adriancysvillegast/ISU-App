@@ -28,6 +28,8 @@
 		094901802B4AFBEC00EDCE1B /* ShowAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */; };
 		094901862B4B040C00EDCE1B /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901852B4B040C00EDCE1B /* NewTicketViewController.swift */; };
 		094901882B4B38B000EDCE1B /* NewTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */; };
+		094ABA542B506FEA00F12ACB /* HomeTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094ABA532B506FEA00F12ACB /* HomeTabBar.swift */; };
+		094ABA592B50BDF700F12ACB /* Controller1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094ABA582B50BDF600F12ACB /* Controller1.swift */; };
 		0968980A2B4EFDF700351C6D /* SignInGoogleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096898092B4EFDF700351C6D /* SignInGoogleManager.swift */; };
 		09EA8B4B2B49D52E004D93B4 /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */; };
 		09EA8B4D2B49DAC0004D93B4 /* SignInFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EA8B4C2B49DAC0004D93B4 /* SignInFirebaseManager.swift */; };
@@ -62,6 +64,8 @@
 		0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertView.swift; sourceTree = "<group>"; };
 		094901852B4B040C00EDCE1B /* NewTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
 		094901872B4B38B000EDCE1B /* NewTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTicketViewModel.swift; sourceTree = "<group>"; };
+		094ABA532B506FEA00F12ACB /* HomeTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBar.swift; sourceTree = "<group>"; };
+		094ABA582B50BDF600F12ACB /* Controller1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller1.swift; sourceTree = "<group>"; };
 		096898092B4EFDF700351C6D /* SignInGoogleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleManager.swift; sourceTree = "<group>"; };
 		09EA8B4A2B49D52E004D93B4 /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
 		09EA8B4C2B49DAC0004D93B4 /* SignInFirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFirebaseManager.swift; sourceTree = "<group>"; };
@@ -163,11 +167,13 @@
 		09182B352B489CAE006BD12C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				094ABA572B50BDAB00F12ACB /* controllers */,
 				09445C742B4CD650008C6891 /* Cells */,
 				0949017E2B4AFAE600EDCE1B /* Managers */,
 				0949017F2B4AFBEC00EDCE1B /* ShowAlertView.swift */,
 				0910AD722B4B97DF00769EAD /* Constants.swift */,
 				09445C722B4CA3B8008C6891 /* TicketModelCell.swift */,
+				094ABA532B506FEA00F12ACB /* HomeTabBar.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -335,6 +341,14 @@
 				094901852B4B040C00EDCE1B /* NewTicketViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		094ABA572B50BDAB00F12ACB /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				094ABA582B50BDF600F12ACB /* Controller1.swift */,
+			);
+			path = controllers;
 			sourceTree = "<group>";
 		};
 		27ACB3CD8BB950CDCDB10099 /* Pods */ = {
@@ -510,7 +524,9 @@
 				09EA8B4D2B49DAC0004D93B4 /* SignInFirebaseManager.swift in Sources */,
 				09FAB3EA2B5036F3008AB2D9 /* LocationTicketViewController.swift in Sources */,
 				0910AD682B4B830300769EAD /* SearchResultViewController.swift in Sources */,
+				094ABA542B506FEA00F12ACB /* HomeTabBar.swift in Sources */,
 				09EA8B4F2B49E6E0004D93B4 /* DashBoardViewModel.swift in Sources */,
+				094ABA592B50BDF700F12ACB /* Controller1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
