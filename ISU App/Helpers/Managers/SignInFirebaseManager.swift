@@ -8,20 +8,21 @@
 import Foundation
 import FirebaseAuth
 
-final class UserValidateManager {
+final class SignInFirebaseManager {
     
     /*
      This class has the propose of make all of the validations to log in, log out and validate if there is an account active 
      */
     
-    
-    
     // MARK: - Properties
-
+    var userAccessToken: String? {
+        return UserDefaults.standard.string(forKey: "userAccessToken")
+    }
     
     // MARK: - Methods
-    func currentUser() -> Bool {
-        if let email = Auth.auth().currentUser?.email{
+    
+    func isSignIn() -> Bool {
+        if let _ = Auth.auth().currentUser?.email, userAccessToken != nil {
             return true
         }else {
            return false

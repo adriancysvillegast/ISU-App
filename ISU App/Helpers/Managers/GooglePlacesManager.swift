@@ -19,6 +19,12 @@ final class GooglePlacesManager {
     
     // MARK: - Methods
     
+    /**
+     
+     This class had the purpose to get the locations with google places but it didn't work for long time
+     
+     at the first time it gave some places but suddenly  me it gives me and error about i don't have permisions and my key wasn't correct although i didn't change my password 
+     */
     func findPlaces(
         query: String,
         completion: @escaping (Result<[GMSAutocompletePrediction], Error>) -> Void

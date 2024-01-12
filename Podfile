@@ -11,6 +11,8 @@ pod 'GoogleAPIClientForREST/Calendar'
 pod 'GoogleSignIn'
 pod 'GoogleMaps', '4.0.0'
 pod 'GooglePlaces' , '4.0.0'
+pod 'SQLite.swift', '~> 0.14.0'
+
   # Pods for ISU App
 
 end

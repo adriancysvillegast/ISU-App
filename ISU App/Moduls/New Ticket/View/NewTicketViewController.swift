@@ -8,13 +8,18 @@
 import UIKit
 import GoogleMaps
 
-
-
 class NewTicketViewController: UIViewController {
     // MARK: - Properties
     
-    lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 90)
+    lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 80)
 
+    /**
+     this properties toEditTicket, ticketToEdit will hold some data to show a view to create ticket or to edit
+     */
+    
+    var ticketToEdit: TicketModelCell?
+    var toEditTicket: Bool = false
+    
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.backgroundColor = .systemBackground
@@ -33,18 +38,11 @@ class NewTicketViewController: UIViewController {
         return view
     }()
     
-    //AGREGAR EN VIEWmDEL
     private lazy var viewModel: NewTicketViewModel = {
         let viewModel = NewTicketViewModel()
         viewModel.delegate = self
         return viewModel
     }()
-    
-    
-    //    let locationManager =  CLLocationManager()
-    //    var currentLocation: CLLocation?
-    //    var mapView: GMSMapView!
-    //    var selectedPlace: CLLocationCoordinate2D?//esto lo modifique
     
     private lazy var labelClient: UILabel = {
         let label = UILabel()
@@ -94,7 +92,6 @@ class NewTicketViewController: UIViewController {
         aTextField.tintColor = .secondaryLabel
         aTextField.layer.cornerRadius = 12
         aTextField.translatesAutoresizingMaskIntoConstraints = false
-//                aTextField.addTarget(self, action: #selector(validateInfo), for: .editingChanged)
         aTextField.delegate = self
         return aTextField
     }()
@@ -110,7 +107,6 @@ class NewTicketViewController: UIViewController {
         aTextField.tintColor = .secondarySystemBackground
         aTextField.layer.cornerRadius = 12
         aTextField.translatesAutoresizingMaskIntoConstraints = false
-        //        aTextField.addTarget(self, action: #selector(emailValidate), for: .editingChanged)
         aTextField.delegate = self
         return aTextField
     }()
@@ -159,22 +155,36 @@ class NewTicketViewController: UIViewController {
         return button
     }()
     
+    private lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Update Ticket".uppercased(), for: .normal)
+        button.backgroundColor = .green
+        button.layer.cornerRadius = 12
+        button.isEnabled = false
+        button.isHidden = true
+        button.titleLabel?.textColor = .white
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(updateTicket), for: .touchUpInside)
+        return button
+    }()
+    
     var location: PlacesModal?
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        GMSServices.provideAPIKey(viewModel.api_key)
-        //        showAlertMessage(title: "License Info", message: GMSServices.openSourceLicenseInfo())
-        //        locationManager.delegate = self
-        //        locationManager.requestWhenInUseAuthorization()
-        //        locationManager.startUpdatingLocation()
-        
+        /**
+         setUpView to set all properties on the view
+         setUpViewForUpdates to show a create button or edit button
+         */
+        setUpViewForUpdates()
         setUpView()
     }
     
     // MARK: - setUpView
     private func setUpView() {
+        
         view.backgroundColor = .white
         title = "Add a new ticket"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -182,8 +192,7 @@ class NewTicketViewController: UIViewController {
         scrollView.addSubview(containerView)
         [
             labelClient,clientTextField, labelAddress, placeNameTextField, goToSearchLocationButton,
-//            cityNameTextField, countryNameTextField,
-            labelDate, datePicker, createButton
+            labelDate, datePicker, createButton, editButton
         
         ].forEach {
             containerView.addSubview($0)
@@ -210,14 +219,7 @@ class NewTicketViewController: UIViewController {
             goToSearchLocationButton.topAnchor.constraint(equalTo: placeNameTextField.bottomAnchor, constant: 8),
             goToSearchLocationButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             goToSearchLocationButton.widthAnchor.constraint(equalToConstant: containerView.frame.width/2),
-//            cityNameTextField.topAnchor.constraint(equalTo: labelAddress.bottomAnchor, constant: 5),
-//            cityNameTextField.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-//            cityNameTextField.widthAnchor.constraint(equalToConstant: containerView.frame.width/1.2),
-//
-//            countryNameTextField.topAnchor.constraint(equalTo: cityNameTextField.bottomAnchor, constant: 5),
-//            countryNameTextField.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-//            countryNameTextField.widthAnchor.constraint(equalToConstant: containerView.frame.width/1.2),
-//
+
             labelDate.topAnchor.constraint(equalTo: goToSearchLocationButton.bottomAnchor, constant: 8),
             labelDate.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor, constant: 5),
             labelDate.widthAnchor.constraint(equalToConstant: 100),
@@ -231,7 +233,35 @@ class NewTicketViewController: UIViewController {
             createButton.widthAnchor.constraint(equalToConstant: 200),
             createButton.heightAnchor.constraint(equalToConstant: 60),
             
+            
+            editButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 40),
+            editButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            editButton.widthAnchor.constraint(equalToConstant: 210),
+            editButton.heightAnchor.constraint(equalToConstant: 60),
+            
+            
+            
         ])
+    }
+    
+    func setUpViewForUpdates() {
+        guard let ticket = ticketToEdit, toEditTicket == true else {
+            return
+        }
+        createButton.isHidden = true
+        createButton.isEnabled = false
+        editButton.isHidden = false
+        editButton.isEnabled = true
+        
+        placeNameTextField.text = ticket.placeName
+        clientTextField.text = ticket.name
+        location = PlacesModal(
+            name: ticket.placeName,
+            cordinate: CoordinatePlaceModal(
+                latitude: CLLocationDegrees(ticket.placeLatitude),
+                longitude: CLLocationDegrees(ticket.placeLongitude))
+        )
+        datePicker.date = ticket.dateScheduled
     }
     
     
@@ -247,33 +277,39 @@ class NewTicketViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func validateInfo() {
-        viewModel.reviewInfo(cliente: clientTextField.text, date: datePicker.date, location: location)
+    @objc func updateTicket() {
+        guard let ticket = ticketToEdit else {
+            return
+        }
+        viewModel.updateTicket(oldTicket: ticket, cliente: clientTextField.text, date: datePicker.date, location: location)
     }
+    
     // MARK: - Methods
 
 }
+// MARK: - UITextFieldDelegate
 extension NewTicketViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == clientTextField || textField == placeNameTextField{
-            scrollView.frame.origin.y -= 40
-        }else if textField == countryNameTextField {
-            scrollView.frame.origin.y -= 120
-        }
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        scrollView.frame.origin.y = 0
-    }
-    
 }
+
 // MARK: - NewTicketViewModelDelegate
 extension NewTicketViewController: NewTicketViewModelDelegate {
+//    modal to show success message and navigate to dashboard
+    func wasAdded(message: String) {
+        let alert = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(alert, animated: true)
+    }
+    
+    func errorAdding(message: String) {
+        showAlertMessage(title: "Error", message: message)
+    }
+    
     func showAlert() {
         showAlertMessage(title: "Error", message: "You need to add all information, client nane, location and the day for this ticket")
     }
@@ -282,38 +318,16 @@ extension NewTicketViewController: NewTicketViewModelDelegate {
 // MARK: - SearchLocationViewControllerDelegate
 
 extension NewTicketViewController: SearchLocationViewControllerDelegate {
+//    to save de location selected when you tap on a location
     func getLocation(location: PlacesModal) {
         DispatchQueue.main.async {
             self.location = location
             self.placeNameTextField.text = location.name
         }
     }
-    
-    
 }
 
 
 
-//extension NewTicketViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let location = locations.first else {
-//            return
-//        }
-//        print(locations)
-//        let cordinate = location.coordinate
-//        let camera = GMSCameraPosition.camera(withLatitude:cordinate.latitude, longitude: cordinate.longitude, zoom: 6.0)
-//        let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
-//        self.view.addSubview(mapView)
-//
-//        // Creates a marker in the center of the map.
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: cordinate.latitude, longitude: cordinate.longitude)
-//        marker.title = "saa"
-//        marker.snippet = "Australia"
-//        marker.map = mapView
-//    }
-//
-//    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-//
-//    }
-//}
+
+

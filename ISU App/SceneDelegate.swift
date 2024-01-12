@@ -11,12 +11,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    let userValidate = UserValidateManager()
+    let userValidate = SignInFirebaseManager()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        if userValidate.currentUser() {
+        /**With the class SignInFirebaseManager we can validate if there an user logged or not **/
+        if userValidate.isSignIn() {
             let vc = DashboardViewController()
             let nav = UINavigationController(rootViewController: vc)
             window?.rootViewController = nav
