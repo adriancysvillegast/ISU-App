@@ -43,6 +43,7 @@ class HomeTabBar: UITabBarController {
     }
 
     func setupVCs() {
+//        Create the viewControllers to show with an icon and titles
             viewControllers = [
                 createNavController(for: DetailTicketViewController(ticket: ticket), title: NSLocalizedString("Work Item", comment: ""), image: UIImage(systemName: ""), nameItem: "Overview"),
                 createNavController(for: Controller1(), title: NSLocalizedString("Work Details", comment: ""), image: UIImage(systemName: ""), nameItem: "Work Details"),

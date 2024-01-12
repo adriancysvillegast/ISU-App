@@ -10,8 +10,12 @@ import SQLite
 import SQLite3
 
 final class SQLiteManager {
-    
+    /**
+     
+     Class to create the data base
+     */
     // MARK: - Properties
+    
     static let shared = SQLiteManager()
     
     var database : Connection?

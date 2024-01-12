@@ -145,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				09182B352B489CAE006BD12C /* Helpers */,
-				09182B342B489C9C006BD12C /* CoreService */,
 				09182B362B489CB9006BD12C /* Moduls */,
 				09182B202B489C70006BD12C /* AppDelegate.swift */,
 				09182B222B489C70006BD12C /* SceneDelegate.swift */,
@@ -155,13 +154,6 @@
 				09EA8B502B4A4875004D93B4 /* GoogleService-Info.plist */,
 			);
 			path = "ISU App";
-			sourceTree = "<group>";
-		};
-		09182B342B489C9C006BD12C /* CoreService */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CoreService;
 			sourceTree = "<group>";
 		};
 		09182B352B489CAE006BD12C /* Helpers */ = {

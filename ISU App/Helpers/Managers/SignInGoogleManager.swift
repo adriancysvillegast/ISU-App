@@ -13,6 +13,8 @@ import GoogleAPIClientForREST
 
 
 final class SignInGoogleManager {
+    
+    
     // MARK: - Properties
     
     let scopes = [kGTLRAuthScopeCalendar]
@@ -77,19 +79,15 @@ final class SignInGoogleManager {
         completion: @escaping (Bool) -> Void
     ) {
 
-//        service.authorizer?.fetcherService.
+        /**
+         This Methods didn't work it show me an error about scopes and i added al the necesaries scopes to this methods.
+         i couldn't find a way to make it work because all the docmumentation is out of date. some classes or methods don't exist and also was kind of dificult understand the google documentation
+         */
+        
         service.authorizer = user.fetcherAuthorizer
 
         service.executeQuery(query) { (ticket, object, error) in
-
-            
             print("ticket: \(ticket)\n object: \(object)\n error: \(error)")
-//            if error == nil {
-//                completion(true)
-//            } else {
-//                print("error \(#function) -- \(error)")
-//                completion(false)
-//            }
         }
     }
     

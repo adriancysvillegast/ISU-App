@@ -10,6 +10,10 @@ import SQLite
 import SQLite3
 
 class SQLiteCommands {
+    
+    /**
+     Class with all the necessary queries to create, update, edit and delete
+     */
     // MARK: - Properties
        
     static var table = Table("ticket")

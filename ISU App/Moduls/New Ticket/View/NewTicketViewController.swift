@@ -13,6 +13,10 @@ class NewTicketViewController: UIViewController {
     
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 80)
 
+    /**
+     this properties toEditTicket, ticketToEdit will hold some data to show a view to create ticket or to edit
+     */
+    
     var ticketToEdit: TicketModelCell?
     var toEditTicket: Bool = false
     
@@ -170,7 +174,10 @@ class NewTicketViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /**
+         setUpView to set all properties on the view
+         setUpViewForUpdates to show a create button or edit button
+         */
         setUpViewForUpdates()
         setUpView()
     }
@@ -290,6 +297,7 @@ extension NewTicketViewController: UITextFieldDelegate {
 
 // MARK: - NewTicketViewModelDelegate
 extension NewTicketViewController: NewTicketViewModelDelegate {
+//    modal to show success message and navigate to dashboard
     func wasAdded(message: String) {
         let alert = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
@@ -310,6 +318,7 @@ extension NewTicketViewController: NewTicketViewModelDelegate {
 // MARK: - SearchLocationViewControllerDelegate
 
 extension NewTicketViewController: SearchLocationViewControllerDelegate {
+//    to save de location selected when you tap on a location
     func getLocation(location: PlacesModal) {
         DispatchQueue.main.async {
             self.location = location
