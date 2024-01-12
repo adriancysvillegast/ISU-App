@@ -21,6 +21,7 @@ i read some docummentation and i see that when you don't have a verified account
 My latest projects:
 
 https://github.com/adriancysvillegast/avocado
+
 ![avocado](https://github.com/adriancysvillegast/ISU-App/assets/81894293/b3439de3-6d14-4ce1-95ed-0823c813fd86)
 
 
