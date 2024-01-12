@@ -17,7 +17,7 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        /**Initilize the objects  Firebase, google maps, dropdown and google places*/
         
         FirebaseApp.configure()
         DropDown.startListeningToKeyboard()

@@ -12,7 +12,9 @@ import DropDown
 class DetailTicketViewController: UIViewController {
 
     // MARK: - Properties
-    var ticket: TicketModelCell?
+    
+    private let ticketD: TicketModelCell
+//    var ticket: TicketModelCell?
     
     private lazy var menuBar: UIBarButtonItem =  {
         let button = UIBarButtonItem(
@@ -172,7 +174,7 @@ class DetailTicketViewController: UIViewController {
        let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.textColor = .secondaryLabel
-        label.text = "Swift is required for this test App\nIt is required the use of architecture and design patterns\nApplication needs to be optimized for tablets with 10 Inches, however it needs to be responsive in order to operate with other resolutions\nThe iOS application needs to work with a local SQL Lite database structure\nThe application needs to be able to demonstrate add, modify and delete records\nThe application code needs to be submitted with proper in code comments and documentation in English.\nFor the address location user story, we will be reviewing a proper google maps API integration\nSubmitted the project to ISU Corp, providing the code"
+        label.text = "Swift is required for this test App\nIt is required the use of architecture and design patterns\nApplication needs to be optimized for tablets with 10 Inches, however it needs to be responsive in order to operate with other resolutions\nThe iOS application needs to work with a local SQL Lite database structure\n"
         label.numberOfLines = 30
         label.textAlignment = .left
 //        label.backgroundColor = .red
@@ -228,13 +230,24 @@ class DetailTicketViewController: UIViewController {
        let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.textColor = .secondaryLabel
-        label.text = "Swift is required for this test App\nIt is required the use of architecture and design patterns\nApplication needs to be optimized for tablets with 10 Inches, however it needs to be responsive in order to operate with other resolutions\nThe iOS application needs to work with a local SQL Lite database structure"
+        label.text = "Swift is required for this test App\nIt is required the use of architecture and design patterns\nApplication needs to be optimized for tablets with 10 Inches, however it needs to be responsive in order to operate with other resolutions"
         label.numberOfLines = 30
-        label.textAlignment = .left
+        label.textAlignment = .justified
 //        label.backgroundColor = .red
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    
+    // MARK: - Init
+    init(ticket: TicketModelCell) {
+        self.ticketD = ticket
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - lifeCycle
     
@@ -292,7 +305,7 @@ class DetailTicketViewController: UIViewController {
             containerView.topAnchor.constraint(equalTo: aViewCustomAndDate.bottomAnchor, constant: 2),
             containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
             
             reasonContainerView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 5),
             reasonContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
@@ -367,11 +380,12 @@ class DetailTicketViewController: UIViewController {
             notesLabel.topAnchor.constraint(equalTo: notesView.topAnchor, constant: 0),
             notesLabel.leadingAnchor.constraint(equalTo: noteIconImage.trailingAnchor, constant: 0),
             notesLabel.trailingAnchor.constraint(equalTo: notesView.trailingAnchor, constant: 0),
+            notesLabel.heightAnchor.constraint(equalToConstant: 20),
             
             noteValue.topAnchor.constraint(equalTo: notesLabel.bottomAnchor, constant: 5),
             noteValue.leadingAnchor.constraint(equalTo: notesView.leadingAnchor, constant: 5),
-            noteValue.trailingAnchor.constraint(equalTo: notesView.trailingAnchor, constant: 5),
-            noteValue.bottomAnchor.constraint(equalTo: notesView.bottomAnchor, constant: 0),
+            noteValue.trailingAnchor.constraint(equalTo: notesView.trailingAnchor, constant: -5),
+            noteValue.bottomAnchor.constraint(lessThanOrEqualTo: notesView.bottomAnchor, constant: 0),
             
             reasonLabel.topAnchor.constraint(equalTo: reasonContainerView.topAnchor, constant: 0),
             reasonLabel.leadingAnchor.constraint(equalTo: reasonContainerView.leadingAnchor, constant: 5),
@@ -396,7 +410,13 @@ class DetailTicketViewController: UIViewController {
             animated: true)
         menuDropDown.anchorView = menuBar
 
+        navigationItem.setLeftBarButton(
+            UIBarButtonItem(title: "Dashboard", image: UIImage(systemName: "chevron.backward"), target: self, action: #selector(goToDashBoard))
+            , animated: true)
+        
+        
     }
+    
     
     // MARK: - Targets
     
@@ -408,15 +428,18 @@ class DetailTicketViewController: UIViewController {
         }
     }
     
+    @objc func goToDashBoard() {
+        dismiss(animated: true)
+    }
     
     @objc func goToMap() {
 //        mostrar mata con los datos del lugar
-        guard let ticketValue = ticket else {
-            return
-        }
+//        guard let ticketValue = ticket else {
+//            return
+//        }
         
         let vc = LocationTicketViewController()
-        vc.ticket = ticketValue
+        vc.ticket = ticketD
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -424,28 +447,28 @@ class DetailTicketViewController: UIViewController {
     
 
     func updateView() {
-        guard let ticket = ticket else {
-            return
-        }
+//        guard let ticket = ticket else {
+//            return
+//        }
         
-        let date = ticket.dateScheduled.formatted(date: .numeric, time: .standard)
+        let date = ticketD.dateScheduled.formatted(date: .numeric, time: .standard)
         let dateArray = date.components(separatedBy: ", ")
         
         DispatchQueue.main.async {
             self.dateValue.text = "\(dateArray[0])\n\(dateArray[1])"
-            self.locationValue.text = ticket.placeName
-            self.customerValue.text =  ticket.name
+            self.locationValue.text = self.ticketD.placeName
+            self.customerValue.text =  self.ticketD.name
         }
     }
     func navigation(index: Int) {
 //        ["Get Directions", "DashBoard"]
-//        navigationController?.dismiss(animated: true)
         if index == 0 {
             let vc = SearchLocationViewController()
             vc.fromHome = true
             navigationController?.pushViewController(vc, animated: true)
         }else if index == 1{
-            navigationController?.popViewController(animated: true)
+            dismiss(animated: true)
+            print("dissmiss")
         }
         
     }

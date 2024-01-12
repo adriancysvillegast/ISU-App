@@ -11,7 +11,7 @@ import DropDown
 
 
 class DashboardViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private lazy var viewModel: DashBoardViewModel = {
@@ -21,7 +21,7 @@ class DashboardViewController: UIViewController {
     }()
     
     private let menuDropDown: DropDown = {
-       let menu = DropDown()
+        let menu = DropDown()
         menu.dataSource = ["Work Ticket", "Get Directions", "Log Out"]
         
         return menu
@@ -47,23 +47,20 @@ class DashboardViewController: UIViewController {
         return aTableView
     }()
     
-//    private let scopes = [kGTLRAuthScopeCalendar]
-//    private let service = GTLRCalendarService()
-//    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemGray
         setUpNavigationBar()
         setUpView()
         viewModel.conectToDB()
         viewModel.showAlertToSignWithGoogle()
-//        GIDSignIn.sharedInstance.clientID = "your-key-goes-here"
-//        GIDSignIn.sharedInstance
-//        GIDSignIn.sharedInstance().scopes = scopes
-//        GIDSignIn.sharedInstance.presentingViewController = self
+        //        GIDSignIn.sharedInstance.clientID = "your-key-goes-here"
+        //        GIDSignIn.sharedInstance
+        //        GIDSignIn.sharedInstance().scopes = scopes
+        //        GIDSignIn.sharedInstance.presentingViewController = self
         // Do any additional setup after loading the view.
     }
     
@@ -81,23 +78,23 @@ class DashboardViewController: UIViewController {
                     style: .plain,
                     target: self,
                     action: #selector(goToCalendar)),
-            UIBarButtonItem(
-                image: UIImage(systemName: "arrow.2.squarepath")?.withTintColor(.green),
-                style: .plain,
-                target: self,
-                action: #selector(syncEmail))
+                UIBarButtonItem(
+                    image: UIImage(systemName: "arrow.2.squarepath")?.withTintColor(.green),
+                    style: .plain,
+                    target: self,
+                    action: #selector(syncEmail))
             ],
             animated: true)
         
-    
+        
         navigationItem.setRightBarButtonItems(
             [
-            menuBar,
-            UIBarButtonItem(
-                image: UIImage(systemName: "plus")?.withTintColor(.green),
-                style: .plain,
-                target: self,
-                action: #selector(addNewTicket))
+                menuBar,
+                UIBarButtonItem(
+                    image: UIImage(systemName: "plus")?.withTintColor(.green),
+                    style: .plain,
+                    target: self,
+                    action: #selector(addNewTicket))
             ],
             animated: true)
         
@@ -144,7 +141,7 @@ class DashboardViewController: UIViewController {
     }
     
     // MARK: - Methods
-
+    
     func signUpGoogle() {
         if viewModel.isSignedInGoogle {
             showAlertMessage(title: "You're logged", message: "\(viewModel.name ?? "Someone") is conected ")
@@ -154,15 +151,17 @@ class DashboardViewController: UIViewController {
     }
     
     func navigation(index: Int) {
-//        ["Work Ticket", "Get Directions", "Log Out"]
+        //        ["Work Ticket", "Get Directions", "Log Out"]
         switch index {
         case 0:
-            let vc = DetailTicketViewController()
-            vc.ticket =  viewModel.getlastTicket()
-            navigationController?.pushViewController(vc, animated: true)
+            guard let ticket = viewModel.getlastTicket() else { return }
+            let vc = HomeTabBar(ticket: ticket)
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
         case 1:
             let vc = SearchLocationViewController()
             vc.fromHome = true
+            vc.navigationController?.navigationBar.prefersLargeTitles = false
             navigationController?.pushViewController(vc, animated: true)
         default:
             self.viewModel.logOut()
@@ -210,34 +209,37 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let ticketSelected = viewModel.ticketForRowAt(index: indexPath.row)
-        let vc = DetailTicketViewController()
-        vc.ticket = ticketSelected
-        navigationController?.pushViewController(vc, animated: true)
+        //        let vc = DetailTicketViewController()
+        //        vc.ticket = ticketSelected
+        let vc = HomeTabBar(ticket: ticketSelected)
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let ticketSelected = viewModel.ticketForRowAt(index: indexPath.row)
-            viewModel.delete(ticket: ticketSelected)
-            self.getTickets()
+            viewModel.showModalToDeleteRow(ticket: ticketSelected)
+            
+            
         }
     }
     
     func tableView(_ tableView: UITableView,
-                            contextMenuConfigurationForRowAt indexPath: IndexPath,
-                            point: CGPoint) -> UIContextMenuConfiguration? {
+                   contextMenuConfigurationForRowAt indexPath: IndexPath,
+                   point: CGPoint) -> UIContextMenuConfiguration? {
         
         //context view to go to update view or delete row from data
         return UIContextMenuConfiguration(identifier: nil,
                                           previewProvider: nil,
                                           actionProvider: {
-                suggestedActions in
+            suggestedActions in
             let update =
-                UIAction(title: NSLocalizedString("Update", comment: ""),
-                         image: UIImage(systemName: "square.and.pencil")) { action in
-                    let ticketToEdit = self.viewModel.ticketForRowAt(index: indexPath.row)
-                    self.updateRow(ticket: ticketToEdit)
-                }
+            UIAction(title: NSLocalizedString("Update", comment: ""),
+                     image: UIImage(systemName: "square.and.pencil")) { action in
+                let ticketToEdit = self.viewModel.ticketForRowAt(index: indexPath.row)
+                self.updateRow(ticket: ticketToEdit)
+            }
             return UIMenu(title: "", children: [update])
         })
     }
@@ -248,6 +250,18 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension DashboardViewController: DashBoardViewModelDelegate {
+    func toDeleteTicket(ticket: TicketModelCell) {
+        let alert = UIAlertController(title: "Alert", message: "Do you want to delete \(ticket.name)?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+            self.viewModel.delete(ticket: ticket)
+            DispatchQueue.main.async {
+                self.getTickets()
+            }
+        }))
+        present(alert, animated: true)
+    }
+    
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default))

@@ -14,10 +14,10 @@ protocol SearchLocationViewControllerDelegate: AnyObject {
 }
 
 class SearchLocationViewController: UIViewController {
-
+    
     // MARK: - Properties
     weak var delegate: SearchLocationViewControllerDelegate?
-
+    
     var fromHome: Bool = false
     
     private var placeSelected: PlacesModal?
@@ -39,7 +39,7 @@ class SearchLocationViewController: UIViewController {
         super.viewDidLoad()
         searchVC.searchResultsUpdater = self
         
-       setUpView()
+        setUpView()
         hiddenSaveButton()
     }
     
@@ -54,6 +54,7 @@ class SearchLocationViewController: UIViewController {
     
     // MARK: - SetUpView
     private func setUpView() {
+        view.backgroundColor = .systemGray
         view.addSubview(mapKitView)
         navigationItem.searchController = searchVC
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveLocation))
@@ -95,7 +96,7 @@ extension SearchLocationViewController: UISearchResultsUpdating{
             resultsVC.updateTable(placesResult: result)
         }
         
-
+        
         /*
          The code inside was working like a charm but how i don't have an account for billing
          it stopped giving me locations.
@@ -103,9 +104,9 @@ extension SearchLocationViewController: UISearchResultsUpdating{
          being honest i don't have a credic card to add on google cloud, i tried with my zinli card but it didn't allow me
          
          viewModel.getLocation(query: query) { places in
-             DispatchQueue.main.async {
-                 resultsVC.updateTable(placesResult: places)
-             }
+         DispatchQueue.main.async {
+         resultsVC.updateTable(placesResult: places)
+         }
          }
          */
     }

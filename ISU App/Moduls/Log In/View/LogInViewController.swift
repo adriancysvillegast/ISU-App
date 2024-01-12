@@ -41,7 +41,7 @@ class LogInViewController: UIViewController {
         aTextField.placeholder = "Email".uppercased()
         aTextField.borderStyle = .roundedRect
         aTextField.tintColor = .secondaryLabel
-        aTextField.text = "adriancysvillegast@gmail.com"
+        aTextField.text = ""
         aTextField.layer.borderColor = UIColor.green.cgColor
         aTextField.layer.borderWidth = 0.7
         aTextField.layer.cornerRadius = 12
@@ -68,7 +68,7 @@ class LogInViewController: UIViewController {
         aTextField.tintColor = .secondaryLabel
         aTextField.layer.borderColor = UIColor.green.cgColor
         aTextField.layer.borderWidth = 0.7
-        aTextField.text = "123456789A"
+        aTextField.text = ""
         aTextField.layer.cornerRadius = 12
         aTextField.translatesAutoresizingMaskIntoConstraints = false
         aTextField.addTarget(self, action: #selector(passwordValidate), for: .editingChanged)
@@ -145,8 +145,10 @@ class LogInViewController: UIViewController {
 // MARK: - UITextFieldDelegate
 
 extension LogInViewController : UITextFieldDelegate {
-    
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 // MARK: - LogInViewModelDelegate

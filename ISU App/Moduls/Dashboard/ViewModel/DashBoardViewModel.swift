@@ -16,6 +16,7 @@ protocol DashBoardViewModelDelegate: AnyObject {
     func conectWithGoogle()
     func goToSignInView()
     func showAlert(title: String, message: String)
+    func toDeleteTicket(ticket: TicketModelCell)
 }
 
 class DashBoardViewModel {
@@ -56,6 +57,7 @@ class DashBoardViewModel {
     
     
     func conectToDB() {
+//        Connect data base
         _ = SQLiteManager.shared
     }
     
@@ -68,14 +70,22 @@ class DashBoardViewModel {
     }
     
     func ticketForRowAt(index: Int) -> TicketModelCell {
+//        to fill the cell in the DashboardViewController
         return ticketsArray[index]
     }
     
     func getlastTicket() -> TicketModelCell? {
+//        return de last ticket created
         return ticketsArray.first
     }
     
+    func showModalToDeleteRow(ticket: TicketModelCell) {
+//        to show a modal before make changes on the data
+        delegate?.toDeleteTicket(ticket: ticket)
+    }
+    
     func delete(ticket: TicketModelCell) {
+//        Delete cell metods
         let success = SQLiteCommands.deleteRow(ticket: ticket)
         
         if success == true {
@@ -87,6 +97,7 @@ class DashBoardViewModel {
     
     // MARK: - Google sync
     func logInGoogle(vc: UIViewController) {
+        //to sign in with your google account
         signInGoogleManager?.logIn(vc: vc)
     }
     
@@ -98,6 +109,7 @@ class DashBoardViewModel {
     }
     
     func logOut() {
+//        Log out in all accounts (google and firebase)
         let firebaseAccount = authManager.logOut()
         let googleAccount = signInGoogleManager?.logOutCleanData()
         
